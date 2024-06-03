@@ -1,0 +1,33 @@
+doctype html 
+html(lang="en")
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Informações do Recurso
+  body
+    h1= recurso.nome
+    h2 Descrição
+    p= recurso.descricao
+    h2 Detalhes
+    ul
+      li Escola: #{recurso.escola}
+      li Departamento: #{recurso.departamento}
+      li Curso: #{recurso.curso}
+      li Data: #{recurso.data}
+    h2 Tema
+    p= recurso.tema
+    if recurso.ficheiros.length
+      h2 Ficheiros
+      ul
+        each ficheiro in recurso.ficheiros
+          li
+            a(href=`${ficheiro}`) #{ficheiro}
+    if recurso.comentarios
+      h2 Comentários
+      p Autor: #{recurso.comentarios.autor}
+      p Texto: #{recurso.comentarios.texto}
+      p Data: #{recurso.comentarios.data}
+    else
+      p No comments yet...

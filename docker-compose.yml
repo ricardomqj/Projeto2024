@@ -1,0 +1,14 @@
+
+version: '3.8'
+services:
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    depends_on:
+      - mongo-seed
+  mongo-seed:
+    image: mongo:latest
+    volumes:
+      - /home/rui/uni/3ano2sem/WEB/Projeto2024/recursos.json:/datasets/dataset.json
+    command: mongoimport --host mongodb -d material -c recursos --type json --file /datasets/dataset.json --jsonArray
