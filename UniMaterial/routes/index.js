@@ -57,13 +57,12 @@ router.post('/files', upload.single('myFile'), (req, res) => {
 
   // Adiciona novos dados do arquivo ao array
   files.push({
+    autor : "Pedro Azevedo",
     date: date,
     name: req.file.originalname,
     mimetype: req.file.mimetype,
     size: req.file.size,
     titulo: req.body.titulo,
-    tema: req.body.tema,
-    descricao: req.body.descricao,
   });
 
   // Escreve de volta para dbFiles.json
