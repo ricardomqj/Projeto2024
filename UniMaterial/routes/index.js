@@ -12,6 +12,23 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+router.get('/perfil', function(req, res, next) {
+  // Aqui você pode adicionar lógica para buscar dados do usuário do banco de dados, se necessário
+  res.render('perfil', {
+    title: 'Perfil do Usuário',
+    usuario: {
+      nome: 'Pedro Miguel Costa Azevedo',
+      role: 'User',
+      email: 'a106955@uminho.pt',
+      escola: 'Engenharia',
+      departamento: 'Informática',
+      cargo: 'Aluno',
+      registro: '28/07/2023',
+      ultimoAcesso: '20/05/2024'
+    }
+  });
+});
+
 router.get('/fileContent/:name', (req, res) => {
   console.log(__dirname + '/../public/fileStore/' + req.params.name)
   var content = fs.readFileSync(__dirname + '/../public/fileStore/' + req.params.name)
