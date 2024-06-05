@@ -34,6 +34,10 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/recursos', recursosRouter);
 
+app.get('/upload', (req, res) => {
+  res.render('upload'); 
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
