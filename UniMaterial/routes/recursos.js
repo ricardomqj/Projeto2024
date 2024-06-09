@@ -10,6 +10,10 @@ router.get('/', async (req, res) => {
             if (recursos.length === 0) return res.status(404).json({ message: 'Recurso not found' });
             return res.status(200).json(recursos);
         }
+        if (req.query.autor) {
+            const recursos = await RecursoController.findByAutor(req.query.autor);
+            return res.render('recursosTab', { recursos });
+        }
         if (req.query.id) {
             const recurso = await RecursoController.findById(req.query.id);
             if (!recurso) return res.status(404).json({ message: 'Recurso not found' });

@@ -8,6 +8,10 @@ module.exports.findByNome = nome => {
     return Recurso.find({ nome: nome }).exec();
 }
 
+module.exports.findByAutor = autor => {
+    return Recurso.find({ 'comentarios.autor': autor }).exec();
+}
+
 module.exports.findById = id => {
     return Recurso.findOne({ _id: id }).exec();
 }
