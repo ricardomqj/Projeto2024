@@ -13,7 +13,8 @@
             "texto": "Muito útil para iniciantes.",
             "data": "12:23 02/06/2024"
         },
-        "data": "12:23 02/06/2024"
+        "data": "12:23 02/06/2024",
+        "autor_recurso": "Mariana Sampaio"
     },
     {
         "escola": "Escola de Engenharia",
@@ -29,7 +30,8 @@
             "texto": "Ótimas dicas de design.",
             "data": "12:23 02/06/2024"
         },
-        "data": "12:23 02/06/2024"
+        "data": "12:23 02/06/2024",
+        "autor_recurso": "Rui Pinto"
     },
     {
         "escola": "Escola de Artes",
@@ -45,7 +47,8 @@
             "texto": "Ajuda prática para começar com JS.",
             "data": "12:23 02/06/2024"
         },
-        "data": "12:23 02/06/2024"
+        "data": "12:23 02/06/2024",
+        "autor_recurso": "Ricardo Jesus"
     },
     {
         "escola": "Escola de Artes",
@@ -61,6 +64,7 @@
             "texto": "Ajuda prática para começar com JS.",
             "data": "12:23 02/06/2024"
         },
-        "data": "12:23 02/06/2024"
+        "data": "12:23 02/06/2024",
+        "autor_recurso": "Pedro Azedo"
     }
 ]

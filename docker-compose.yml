@@ -1,6 +1,21 @@
-
-version: '3.8'
+version: '3.9'
 services:
+  backend:
+    build:
+      context: ./API
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    depends_on:
+      - mongodb 
+  frontend:
+    build:
+      context: ./UniMaterial
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
   mongodb:
     image: mongo:latest
     ports:
@@ -10,5 +25,5 @@ services:
   mongo-seed:
     image: mongo:latest
     volumes:
-      - /mnt/c/Users/pedro/OneDrive/Ambiente de Trabalho/3ano/2sem/EngWeb/EngWeb2024/Projeto/projetoEngWeb/recursos.json:/datasets/dataset.json
+      - ./recursos.json:/datasets/dataset.json
     command: mongoimport --host mongodb -d material -c recursos --type json --file /datasets/dataset.json --jsonArray
