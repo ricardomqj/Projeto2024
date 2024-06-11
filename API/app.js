@@ -5,6 +5,7 @@ var logger = require('morgan');
 var mongoose = require('mongoose');
 
 var recursosRouter = require('./routes/recursos');
+var usersRouter = require('./routes/users');
 
 var app = express();
 
@@ -23,5 +24,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/recursos', recursosRouter);
+app.use('/users', usersRouter);
 
 module.exports = app;

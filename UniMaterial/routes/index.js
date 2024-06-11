@@ -7,10 +7,50 @@ var multer = require('multer')
 
 var upload = multer({dest : 'uploads'})
 
-/* GET home page. */
+var axios = require('axios');
+const mongoose = require('mongoose');
+
+const apiURL = 'http://backend:3001';
+
+// Página Login 
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
+
+
+
+// Página Registo
+
+router.get('/registo', function(req, res, next) {
+  res.render('registo', { title: 'Registo' });
+});
+
+router.post('/registo', async (req, res) => {
+  const { nome, email, role, escola, curso, departamento, cargo } = req.body;
+
+  if(!nome || !email || !role || !escola || !curso || !departamento || !cargo) {
+    return res.status(400).json({ message: 'All fields are required' });
+  }
+
+  const newUser = new User({
+    nome,
+    email,
+    role,
+    escola,
+    curso,
+    departamento,
+    cargo,
+    registo: new Date(),
+    ultimoAcesso: new Date()
+  });
+
+  const response = await axios.put(`${apiURL}/registo`, newUser);
+
+  res.redirect('/');
+});
+
+
+
 
 router.get('/perfil', function(req, res, next) {
   // Aqui você pode adicionar lógica para buscar dados do usuário do banco de dados, se necessário
