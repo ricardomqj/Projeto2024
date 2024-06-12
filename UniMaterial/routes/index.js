@@ -17,7 +17,25 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+router.post('/login', async (req, res) => {
+  const { email, password } = req.body;
 
+  if(!email || !password) {
+    return res.status(400).json({ message: 'All fields are required' });
+  }
+  console.log("login frontend")
+  console.log(req.body)
+
+  axios.post(`${apiURL}/users/login`, req.body)
+  .then(r=>{
+    res.cookie("token", r.data.token, { maxAge: 3600000 });
+    if (r.data.role=="admin") res.redirect("/admin/recursos")
+    else res.redirect("/recursos")
+  })
+  .catch(e=>{
+      res.redirect('/?info=wrong')
+  }) 
+});
 
 // Página Registo
 
@@ -26,25 +44,13 @@ router.get('/registo', function(req, res, next) {
 });
 
 router.post('/registo', async (req, res) => {
-  const { nome, email, role, escola, curso, departamento, cargo } = req.body;
+  const { nome, email, escola, curso, departamento, cargo,  password} = req.body;
 
-  if(!nome || !email || !role || !escola || !curso || !departamento || !cargo) {
+  if(!nome || !email || !escola || !curso || !departamento || !cargo || !password) {
     return res.status(400).json({ message: 'All fields are required' });
   }
 
-  const newUser = new User({
-    nome,
-    email,
-    role,
-    escola,
-    curso,
-    departamento,
-    cargo,
-    registo: new Date(),
-    ultimoAcesso: new Date()
-  });
-
-  const response = await axios.put(`${apiURL}/registo`, newUser);
+  await axios.post(`${apiURL}/users/registo`, req.body);
 
   res.redirect('/');
 });

@@ -3,15 +3,17 @@ var router = express.Router();
 var axios = require('axios');
 var auth = require('../auth/auth');
 
-const apiURL = 'http://backend:3001/recursos';
+const apiURLRecurs = 'http://backend:3001/recursos';
 
-// Rota principal
-router.get('/', auth.getUserMail , async (req, res, next) => {
+// É PRECISO FAZER FUNÇÃO PARA VERIFICAR SE O UTILIZADOR É ADMIN EM TODAS AQUI E METER COMO MIDELWARE
+
+
+router.get('/recursos', auth.getUserMail , async (req, res, next) => {
   const token = req.cookies.token;
 
   try {
     if (req.query.autor) {
-      const response = await axios.get(`${apiURL}?autor=${req.query.autor}`, {
+      const response = await axios.get(`${apiURLRecurs}?autor=${req.query.autor}`, {
         headers: {
           'authorization': `Bearer ${token}`
         }
@@ -23,21 +25,16 @@ router.get('/', auth.getUserMail , async (req, res, next) => {
     } 
   
     else {
-      const response = await axios.get(apiURL, {
+        const response = await axios.get(apiURLRecurs, {
         headers: {
           'authorization': `Bearer ${token}`
         }
       });
-      const recursos = response.data;
+        const recursos = response.data;
       
-      console.log(req.user.role);
+        console.log(req.user.role);
 
-      if(req.user.role === "admin"){
-         res.render('recursosTabAdmin', { recursos });
-      }
-      else {
-        res.render('recursosTab', { recursos });
-      }
+        res.render('recursosTabAdmin', { recursos });
     }
   } catch (error) {
     next(error);
@@ -46,8 +43,8 @@ router.get('/', auth.getUserMail , async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
   try {
-    console.log(`${apiURL}?id=${req.params.id}`);
-    const response = await axios.get(`${apiURL}?id=${req.params.id}`);
+    console.log(`${apiURLRecurs}?id=${req.params.id}`);
+    const response = await axios.get(`${apiURLRecurs}?id=${req.params.id}`);
     const recurso = response.data;
     res.render('recursoPage', { recurso });
   } catch (error) {

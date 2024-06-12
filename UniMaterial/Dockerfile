@@ -9,9 +9,9 @@ COPY . .
 # Instalar dependências
 RUN npm install
 
-RUN npm install mongoose
+#RUN npm install mongoose
 
-RUN npm install axios
+#RUN npm install axios
 
 # Expor a porta
 EXPOSE 3000

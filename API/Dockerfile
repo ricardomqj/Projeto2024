@@ -10,6 +10,8 @@ COPY . .
 # Instalar dependências
 RUN npm install
 
+RUN npm install passport-local
+
 # Expor a porta
 EXPOSE 3001
 

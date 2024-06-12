@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const RecursoController = require('../controllers/recursos');
+const auth = require('../auth/auth');
 
 // List all recursos or find by query parameters
-router.get('/', async (req, res) => {
+router.get('/', auth.authenticateToken,  async (req, res) => {
     try {
         if (req.query.nome) {
             const recursos = await RecursoController.findByNome(req.query.nome);
@@ -47,7 +48,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/:id', async(req, res) => {
+router.get('/:id', auth.authenticateToken, async(req, res) => {
     try {
         const recurso = await RecursoController.findById(req.params.id);
         if(recurso) {
@@ -62,7 +63,7 @@ router.get('/:id', async(req, res) => {
 
 
 // Insert a new recurso
-router.post('/', async (req, res) => {
+router.post('/', auth.authenticateToken, async (req, res) => {
     try {
         const novoRecurso = await RecursoController.insert(req.body);
         res.status(201).json(novoRecurso);
@@ -72,7 +73,7 @@ router.post('/', async (req, res) => {
 });
 
 // Remove recurso by ID
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', auth.authenticateToken, async (req, res) => {
     try {
         const result = await RecursoController.removeById(req.params.id);
         if (result.deletedCount === 0) return res.status(404).json({ message: 'Recurso not found' });
@@ -83,7 +84,7 @@ router.delete('/:id', async (req, res) => {
 });
 
 // Update recurso by nome
-router.put('/:nome', async (req, res) => {
+router.put('/:nome', auth.authenticateToken, async (req, res) => {
     try {
         const recursoAtualizado = await RecursoController.updateByName(req.params.nome, req.body);
         if (recursoAtualizado.nModified === 0) return res.status(404).json({ message: 'Recurso not found or no changes made' });

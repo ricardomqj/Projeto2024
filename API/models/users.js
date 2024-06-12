@@ -10,10 +10,9 @@ const userSchema = new mongoose.Schema({
   departamento: { type: String, required: true },
   cargo: { type: String, required: true },
   registo: { type: Date, required: true, default: Date.now },
-  ultimoAcesso: { type: Date, required: true, default: Date.now },
-  password: { type: String, required: true }
+  ultimoAcesso: { type: Date, required: true, default: Date.now }
 });
 
-//userSchema.plugin(passportLocalMongoose, { usernameField: 'email' });
+userSchema.plugin(passportLocalMongoose, { usernameField: 'email' });
 
 module.exports = mongoose.model('users', userSchema);

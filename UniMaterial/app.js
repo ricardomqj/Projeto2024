@@ -17,6 +17,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var recursosRouter = require('./routes/recursos');
+var adminRouter = require('./routes/admin');
 
 var app = express();
 
@@ -33,6 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/recursos', recursosRouter);
+app.use('/admin', adminRouter);
 
 app.get('/upload', (req, res) => {
   res.render('upload'); 

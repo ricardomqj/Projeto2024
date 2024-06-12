@@ -7,6 +7,7 @@ var mongoose = require('mongoose');
 var recursosRouter = require('./routes/recursos');
 var usersRouter = require('./routes/users');
 
+
 var app = express();
 
 var mongoDB = "mongodb://mongodb:27017/material";
@@ -25,5 +26,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/recursos', recursosRouter);
 app.use('/users', usersRouter);
+
 
 module.exports = app;

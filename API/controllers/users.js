@@ -24,6 +24,19 @@ exports.findById = async () => {
   }
 };
 
+exports.findByEmail = async (email) => {
+  try {
+    const user = await User.findOne({ email: email }).exec();
+    if (user) {
+      return user;
+    } else {
+      throw new Error("User not found");
+    }
+  } catch (err) {
+    throw new Error(err.message); // You might want to handle this differently depending on your error handling strategy
+  }
+};
+
 // Create new user
 exports.create = async (req, res) => {
   try {
