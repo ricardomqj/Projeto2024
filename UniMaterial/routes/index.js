@@ -39,6 +39,13 @@ router.post('/login', async (req, res) => {
   }) 
 });
 
+// Página Logout
+
+router.get('/logout', (req, res) => {
+  res.clearCookie('token');
+  res.redirect('/');
+});
+
 // Página Registo
 
 router.get('/registo', function(req, res, next) {
@@ -70,11 +77,52 @@ router.get('/perfil', auth.getUserMail , function(req, res, next) {
       email: req.user.email,
       escola: req.user.escola,
       departamento: req.user.departamento,
+      curso: req.user.curso,
       cargo: req.user.cargo,
       registro: req.user.registo,
       ultimoAcesso: req.user.ultimoAcessos
     }
   });
+});
+
+router.get('/perfil/:email', auth.getUserMail, async (req, res) => {
+  res.render('perfilEdit', {
+    title: 'Perfil do Usuário',
+    user: {
+      nome: req.user.nome,
+      role: req.user.role,
+      email: req.user.email,
+      escola: req.user.escola,
+      departamento: req.user.departamento,
+      curso: req.user.curso,
+      cargo: req.user.cargo,
+      registro: req.user.registo,
+      ultimoAcesso: req.user.ultimoAcessos
+    }
+  });
+});
+
+router.post('/perfil/:email/update', async (req, res) => {
+  try {
+    const userEmail = req.params.email;
+    const { nome, curso, escola, departamento } = req.body;
+
+    const updatedUser = await axios.post(`${apiURL}/users/${userEmail}`, { nome, curso, escola, departamento } , 
+    {
+      headers: {
+        'authorization': `Bearer ${req.cookies.token}`
+      }
+    });
+
+    if (updatedUser) {
+      res.redirect(`/perfil`);
+    } else {
+      res.status(400).send('Erro ao atualizar perfil');
+    }
+  } catch (error) {
+    console.error('Erro ao atualizar perfil:', error);
+    res.status(500).send('Erro interno do servidor');
+  }
 });
 
 // Pagina de Noticias

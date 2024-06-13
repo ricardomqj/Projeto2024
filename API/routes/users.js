@@ -52,7 +52,6 @@ router.post('/login', (req, res, next) => {
     })(req, res, next);
 });
 
-
 router.post('/registo', async (req, res) => {
     try {
 
@@ -69,5 +68,8 @@ router.post('/registo', async (req, res) => {
         res.status(400).send('Failed to create user');
     }
 });
+
+router.post('/:email', auth.authenticateToken, UserController.updateByEmail);
+
 
 module.exports = router;

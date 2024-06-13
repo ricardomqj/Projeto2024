@@ -49,15 +49,28 @@ exports.create = async (req, res) => {
 };
 
 // Update user by ID
-exports.update = async () => {
+exports.updateByEmail = async (req, res) => {
+  const email = req.params.email; // Acesso direto, sem desestruturação
+  const updateData = req.body;
+
+  if (!email) {
+    return res.status(400).json({ message: "Email is required" });
+  }
+
   try {
-    const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true }).exec();
-    if (updatedUser) {
-      res.json(updatedUser);
-    } else {
-      res.status(404).json({ message: "User not found" });
+    const user = await User.findOne({ email: email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
     }
+
+    // Atualize as propriedades do usuário
+    Object.assign(user, updateData);
+    
+    // Salva as mudanças no usuário
+    const updatedUser = await user.save();
+    res.json(updatedUser);
   } catch (err) {
+    console.error('Error updating user by email:', err);
     res.status(400).json({ error: err.message });
   }
 };

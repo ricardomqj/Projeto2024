@@ -42,9 +42,6 @@ block content
                 td= recurso.autor_recurso
                 td= recurso.nome
                 td= recurso.tema
-                td
-                  each aval, index in recurso.avaliacao
-                    span= aval
-                    if index < recurso.avaliacao.length - 1
-                      | ,
+                td= recurso.avaliacao.length > 0 ? (recurso.avaliacao.reduce((acc, nota) => acc + nota, 0) / recurso.avaliacao.length).toFixed(1) : "Sem avaliações"
+                  
 

@@ -1,0 +1,51 @@
+extends perfil 
+
+block content
+  .container.mt-5
+    .header.mb-3
+      h1= user.nome
+      p= user.email
+    .content
+      .row
+        .col-md-6
+          .contact-info.mb-3
+            h5 Informações de Contato
+            p Nome: #{user.nome}
+            p Email: #{user.email}
+          .academic-info
+            h5 Informações Acadêmicas
+            p Escola: #{user.escola}
+            p Departamento: #{user.departamento}
+            p Curos: #{user.curso}
+            p Cargo: #{user.cargo}
+        .col-md-6
+          .role-info.mb-3
+            h5 Role
+            p Role: #{user.role}
+          .record-info
+            h5 Registros
+            p Registro: #{user.registro} 
+            p Último Acesso: #{user.ultimoAcesso} 
+  .container.mt-5
+    .row.justify-content-center
+      .col-md-6
+        .card
+          .card-body
+            h2.text-center Editar Perfil
+            form(action=`/perfil/${user.email}/update`, method="POST")
+              .form-group.mb-3
+                label(for='nome') Nome
+                input.form-control(type='text', name='nome', value=user.nome, required=true)
+              .form-group.mb-3
+                label(for='curso') Curso
+                input.form-control(type='text', name='curso', value=user.curso, required=true)
+              .form-group.mb-3
+                label(for='escola') Escola
+                input.form-control(type='text', name='escola', value=user.escola, required=true)
+              .form-group.mb-3
+                label(for='departamento') Departamento
+                input.form-control(type='text', name='departamento', value=user.departamento, required=true)
+              button.btn.btn-primary.btn-block(type='submit') Atualizar Perfil
+              .mt-3.text-center
+                a.btn.btn-secondary(href='/perfil') Cancelar
+

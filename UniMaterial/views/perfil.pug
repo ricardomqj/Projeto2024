@@ -16,6 +16,7 @@ block content
             h5 Informações Acadêmicas
             p Escola: #{usuario.escola}
             p Departamento: #{usuario.departamento}
+            p Curos: #{usuario.curso}
             p Cargo: #{usuario.cargo}
         .col-md-6
           .role-info.mb-3
@@ -26,4 +27,4 @@ block content
             p Registro: #{usuario.registro} 
             p Último Acesso: #{usuario.ultimoAcesso} 
       .edit-button
-        a.btn.btn-primary(href='/edit-profile') Editar Perfil
+        a.btn.btn-primary(href=`/perfil/:${usuario.email}`) Editar Perfil

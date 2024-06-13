@@ -41,9 +41,8 @@ block content
             span #{new Date(recurso.data).toLocaleDateString("pt-PT")}
           p
             span Avaliação:
-            ul
-              each nota in recurso.avaliacao
-                li #{nota}
+            |
+            span #{recurso.avaliacao.length > 0 ? (recurso.avaliacao.reduce((acc, nota) => acc + nota, 0) / recurso.avaliacao.length).toFixed(1) : "Sem avaliações"}
           p
             span Arquivos:
             ul

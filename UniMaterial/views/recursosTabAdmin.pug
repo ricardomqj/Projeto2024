@@ -32,15 +32,4 @@ html(lang="en")
             th Autor
             th Nome
             th Tema
-            th Avaliação
-        tbody
-          each recurso in recursos
-            tr(data-href=`/recursos/${recurso._id}`)
-              td= recurso.autor_recurso
-              td= recurso.nome
-              td= recurso.tema
-              td
-                each aval, index in recurso.avaliacao
-                  span= aval
-                  if index < recurso.avaliacao.length - 1
-                    | ,
+            td= recurso.avaliacao.length > 0 ? (recurso.avaliacao.reduce((acc, nota) => acc + nota, 0) / recurso.avaliacao.length).toFixed(1) : "Sem avaliações"
