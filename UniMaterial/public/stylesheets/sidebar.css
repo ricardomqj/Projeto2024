@@ -1,0 +1,62 @@
+/* Estilo geral para a barra lateral */
+#sidebar {
+    position: fixed; /* Makes sidebar stay in place */
+    height: 100vh;
+    background-color: #f8f9fa;
+    border-right: 1px solid #dee2e6;
+    padding-top: 20px;
+    width: 250px; /* Fixed width */
+    top: 0; 
+}
+
+#main-content {
+    margin-left: 250px; /* Push main content to the right */
+    width: calc(100% - 250px); /* Adjust width accordingly */
+    top: 0; 
+}
+
+/* Estilos para os links da barra lateral com ícones */
+.nav-link {
+    color: #333;
+    font-weight: bold;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+}
+
+.nav-link i {
+    margin-right: 10px; /* Espaço entre ícone e texto */
+}
+
+.nav-link:hover {
+    background-color: #e9ecef;
+    color: #007bff;
+}
+
+/* Removendo a cor de fundo azul constante quando ativo */
+.nav-link.active {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* Estilo para o botão de logout */
+.logout-link {
+    position: absolute;
+    bottom: 0;
+    width: 100%; /* Full width of the sidebar */
+    text-align: center;
+    padding: 10px 0;
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.logout-link:hover {
+    background-color: #bd2130;
+}
+
+.logo {
+    width: 80px; /* Adjust as needed */
+    height: auto; /* Maintain aspect ratio */
+    display: block;
+    margin: 0 auto 20px; /* Center logo */
+}

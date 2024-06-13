@@ -46,8 +46,13 @@ router.get('/', auth.getUserMail , async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
   try {
+    const token = req.cookies.token;
     console.log(`${apiURL}?id=${req.params.id}`);
-    const response = await axios.get(`${apiURL}?id=${req.params.id}`);
+    const response = await axios.get(`${apiURL}?id=${req.params.id}`, {
+      headers: {
+        'authorization': `Bearer ${token}`
+      }
+    });
     const recurso = response.data;
     res.render('recursoPage', { recurso });
   } catch (error) {

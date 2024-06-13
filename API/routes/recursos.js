@@ -29,6 +29,7 @@ router.get('/', auth.authenticateToken,  async (req, res) => {
             const recurso = await RecursoController.findByDepartamento(req.query.departamento);
             if (!recurso) return res.status(404).json({ message: 'Recurso not found' });
             return res.status(200).json(recurso);
+            return res.status(200).json(recurso);
         }
         if (req.query.curso) {
             const recurso = await RecursoController.findByCurso(req.query.curso);
@@ -72,6 +73,10 @@ router.post('/', auth.authenticateToken, async (req, res) => {
     }
 });
 
+
+// Add comment to recurso by ID
+router.post('/:recursoId/comentarios', auth.authenticateToken, RecursoController.addComment);
+
 // Remove recurso by ID
 router.delete('/:id', auth.authenticateToken, async (req, res) => {
     try {
@@ -95,3 +100,5 @@ router.put('/:nome', auth.authenticateToken, async (req, res) => {
 });
 
 module.exports = router;
+
+

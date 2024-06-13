@@ -4,11 +4,13 @@ var router = express.Router();
 var jsonfile = require('jsonfile')
 var fs = require('fs')
 var multer = require('multer')
+var auth = require('../auth/auth');
 
 var upload = multer({dest : 'uploads'})
 
 var axios = require('axios');
 const mongoose = require('mongoose');
+const { findSourceMap } = require('module');
 
 const apiURL = 'http://backend:3001';
 
@@ -56,23 +58,43 @@ router.post('/registo', async (req, res) => {
 });
 
 
+// perfil do utilizador
 
-
-router.get('/perfil', function(req, res, next) {
+router.get('/perfil', auth.getUserMail , function(req, res, next) {
   // Aqui você pode adicionar lógica para buscar dados do usuário do banco de dados, se necessário
   res.render('perfil', {
     title: 'Perfil do Usuário',
     usuario: {
-      nome: 'Pedro Miguel Costa Azevedo',
-      role: 'User',
-      email: 'a106955@uminho.pt',
-      escola: 'Engenharia',
-      departamento: 'Informática',
-      cargo: 'Aluno',
-      registro: '28/07/2023',
-      ultimoAcesso: '20/05/2024'
+      nome: req.user.nome,
+      role: req.user.role,
+      email: req.user.email,
+      escola: req.user.escola,
+      departamento: req.user.departamento,
+      cargo: req.user.cargo,
+      registro: req.user.registo,
+      ultimoAcesso: req.user.ultimoAcessos
     }
   });
+});
+
+// Pagina de Noticias
+
+router.get('/noticias',  async  (req, res, next) => {
+  const token = req.cookies.token;
+
+  try {
+    const response = await axios.get(`http://backend:3001/recursos`, {
+      headers: {
+        'authorization': `Bearer ${token}`
+      }
+    });
+
+    const noticias = response.data;
+  
+    res.render('noticias', { noticias });
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.get('/fileContent/:name', (req, res) => {
@@ -97,7 +119,7 @@ router.get('/upload', function(req, res, next) {
 });
 
 
-router.post('/files', upload.single('myFile'), (req, res) => {
+router.post('/files', auth.getUserMail, upload.single('myFile'), (req, res) => {
   console.log("cdir: " + __dirname);
   let oldPath = __dirname + '/../' + req.file.path;
   console.log(oldPath);
@@ -120,7 +142,7 @@ router.post('/files', upload.single('myFile'), (req, res) => {
 
   // Adiciona novos dados do arquivo ao array
   files.push({
-    autor : "Pedro Azevedo",
+    autor : req.user.name,
     date: date,
     name: req.file.originalname,
     mimetype: req.file.mimetype,
@@ -131,7 +153,38 @@ router.post('/files', upload.single('myFile'), (req, res) => {
   // Escreve de volta para dbFiles.json
   jsonfile.writeFileSync(__dirname + '/../data/dbFiles.json', files, {spaces: 2});
 
-  res.redirect('/');
+  const resourceData = {
+    escola: req.user.escola,
+    departamento: req.user.departamento,
+    curso: req.user.curso,
+    avaliacao: [],
+    date: date,
+    nome: req.body.titulo,
+    descricao: req.body.descricao,
+    tema: req.body.tema,
+    ficheiros: [req.file.originalname],
+    comentarios: [],
+    autor_recurso: req.user.nome,
+    autor_cargo: req.user.cargo
+  };
+
+  // Get the token from cookies
+  const token = req.cookies.token;
+
+  axios.post('http://backend:3001/recursos', resourceData, {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  })
+    .then(response => {
+      console.log('Resource added successfully:', response.data);
+      res.redirect('/recursos');
+    })
+    .catch(error => {
+      console.error('Error adding resource:', error);
+      res.status(500).send('Erro ao adicionar recurso.');
+    });
+
 });
 
 

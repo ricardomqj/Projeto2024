@@ -1,17 +1,24 @@
-extends layout
-
-block content
-  .container.mt-5
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    link(rel="stylesheet" href="/stylesheets/login.css")
+  body
+  .container
     .row.justify-content-center
       .col-md-6
         .card
           .card-body
+            img.logo(src="/fileStore/logo.png" alt="Logo")
             h2.text-center UniMaterial
             form(action='/login', method='POST')
               .form-group.mb-3
                 label(for='email') Email
-                input#username.form-control(type='text', name='email', required='true', placeholder='Digite seu email')
+                input#username.form-control(type='text', name='email', required=true, placeholder='Digite seu email')
               .form-group.mb-3
                 label(for='password') Password
-                input#password.form-control(type='password', name='password', required='true', placeholder='Digite sua senha')
+                input#password.form-control(type='password', name='password', required=true, placeholder='Digite sua senha')
               button.btn.btn-primary.btn-block(type='submit') Entrar
+            .mt-3.text-center
+              a.btn.btn-secondary(href='/registo') Registrar-se

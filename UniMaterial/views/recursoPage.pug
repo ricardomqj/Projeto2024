@@ -1,40 +1,76 @@
-doctype html
-html(lang="en")
-  head
-    meta(charset="UTF-8")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title Informações do Recurso
-    link(rel="stylesheet", href="/stylesheets/style.css")
-  body
-    .container
-      h1= recurso.nome
-      section#descricao
-        h2 Descrição
-        p= recurso.descricao
-      section#detalhes
-        h2 Detalhes
-        ul
-          li Escola: #{recurso.escola}
-          li Departamento: #{recurso.departamento}
-          li Curso: #{recurso.curso}
-          li Data: #{recurso.data}
-      section#tema
-        h2 Tema
-        p= recurso.tema
-      section#ficheiros
-        if recurso.ficheiros.length
-          h2 Ficheiros
-          ul
-            each ficheiro in recurso.ficheiros
-              li
-                a(href=`${ficheiro}`) #{ficheiro}
-        else
-          p No files available.
-      section#comentarios
-        h2 Comentários
-        if recurso.comentarios
-          p Autor: #{recurso.comentarios.autor}
-          p Texto: #{recurso.comentarios.texto}
-          p Data: #{recurso.comentarios.data}
-        else
-          p Sem comentários...
+extends layout
+
+block content
+  doctype html
+  html(lang="en")
+    head
+      meta(charset="UTF-8")
+      meta(name="viewport", content="width=device-width, initial-scale=1.0")
+      title Informações do Recurso
+      link(rel="stylesheet", href="/stylesheets/style.css")
+    body
+      .container
+        .header
+          h1 #{recurso.nome}
+          p #{recurso.descricao}
+        
+        .recurso-details
+          p
+            span Tema:
+            | 
+            span #{recurso.tema}
+          p
+            span Escola:
+            | 
+            span #{recurso.escola}
+          p
+            span Departamento:
+            | 
+            span #{recurso.departamento}
+          p
+            span Curso:
+            | 
+            span #{recurso.curso}
+          p
+            span Autor:
+            | 
+            span #{recurso.autor_recurso} - #{recurso.autor_cargo}
+          p
+            span Data:
+            | 
+            span #{new Date(recurso.data).toLocaleDateString("pt-PT")}
+          p
+            span Avaliação:
+            ul
+              each nota in recurso.avaliacao
+                li #{nota}
+          p
+            span Arquivos:
+            ul
+              each file in recurso.ficheiros
+                li
+                  a(href=`/download/${file}`) #{file}
+
+        .comments-section
+          h2 Comentários
+          if recurso.comentarios.length > 0
+            each comentario in recurso.comentarios
+              .comment
+                .comment-header
+                  span.comment-author #{comentario.autor}
+                  span.comment-date #{new Date(comentario.data).toLocaleDateString("pt-PT")}
+                .comment-body
+                  p #{comentario.texto}
+          else
+            p Nenhum comentário ainda. Seja o primeiro a comentar!
+
+          .add-comment-form
+            h3 Adicionar Comentário
+            form(action=`/recursos/${recurso._id}/comentarios` method="post")
+              .form-group
+                label(for="autor") Nome:
+                input.form-control(type="text" name="autor" required)
+              .form-group
+                label(for="texto") Comentário:
+                textarea.form-control(name="texto" rows="4" required)
+              button.btn(type="submit") Adicionar Comentário

@@ -6,15 +6,6 @@ body {
   padding-top: 20px;
 }
 
-.container {
-  max-width: 800px;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: #fff;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  border-radius: 8px;
-}
-
 .header h1, .header p {
   font-weight: bold;
   color: #333;
@@ -53,15 +44,6 @@ button.btn {
 
 button.btn:hover {
   background-color: #0056b3;
-}
-
-/* Checkbox Styles */
-.form-check {
-  margin-bottom: 20px;
-}
-
-.form-check-label {
-  margin-left: 10px;
 }
 
 /* Section Styles */
@@ -125,4 +107,35 @@ p {
 
 .search-bar button:hover {
   background-color: #0056b3;
+}
+
+/* Additional Styles for Comments Section */
+.comments-section {
+  margin-top: 30px;
+}
+
+.comment {
+  background-color: #fff;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+}
+
+.comment-body {
+  margin-top: 10px;
+}
+
+.add-comment-form {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f4f4f4;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
