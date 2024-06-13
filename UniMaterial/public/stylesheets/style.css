@@ -139,3 +139,23 @@ p {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+
+.evaluation {
+  background-color: #f0f0f0;
+  padding: 15px;
+  margin-bottom: 10px;
+}
+
+.evaluation h5 {
+  margin-bottom: 8px;
+}
+
+.evaluation form {
+  display: flex;
+  align-items: center;
+}
+
+.evaluation select {
+  width: auto;
+  margin-right: 10px;
+}

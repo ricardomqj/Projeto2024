@@ -65,6 +65,41 @@ module.exports.addComment = async (req, res) => {
     }
 };
 
+exports.addEvaluation = async (req, res) => {
+    const { recursoId } = req.params;
+    const { avaliacao, email } = req.body;
+
+    try {
+        // Find the resource by ID
+        const recurso = await Recurso.findById(recursoId);
+
+        if (!recurso) {
+            return res.status(404).json({ message: 'Recurso não encontrado' });
+        }
+
+        // Check if the email has already submitted an evaluation
+        const existingEvaluation = recurso.avaliacao.find(eval => eval.email === email);
+
+        if (existingEvaluation) {
+            return res.status(409).json({ message: 'Usuário já avaliou este recurso' });
+        }
+
+        // Add new evaluation
+        const novaAvaliacao = {
+            avaliacao,
+            email
+        };
+
+        recurso.avaliacao.push(novaAvaliacao);
+        await recurso.save();
+
+        res.status(201).json({ message: 'Avaliação adicionada com sucesso', recurso });
+    } catch (err) {
+        console.error('Erro ao adicionar avaliação:', err);
+        res.status(500).json({ message: 'Erro ao adicionar avaliação' });
+    }
+};
+
 module.exports.removeById = id => {
     return Recurso.deleteOne({ id: id });
 }

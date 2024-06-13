@@ -42,6 +42,12 @@ block content
                 td= recurso.autor_recurso
                 td= recurso.nome
                 td= recurso.tema
-                td= recurso.avaliacao.length > 0 ? (recurso.avaliacao.reduce((acc, nota) => acc + nota, 0) / recurso.avaliacao.length).toFixed(1) : "Sem avaliações"
-                  
+                td
+                  if recurso.avaliacao.length > 0
+                    - var totalAvaliacao = recurso.avaliacao.reduce((acc, val) => acc + val.avaliacao, 0)
+                    - var mediaAvaliacao = (totalAvaliacao / recurso.avaliacao.length).toFixed(1)
+                    span= mediaAvaliacao
+                  else
+                    span Sem avaliações
+                    
 

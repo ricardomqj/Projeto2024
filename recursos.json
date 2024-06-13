@@ -3,7 +3,11 @@
         "escola": "Escola de Engenharia",
         "departamento": "Ciência da Computação",
         "curso": "Engenharia de Software",
-        "avaliacao": [5, 4, 5],
+        "avaliacao": [
+            {"avaliacao": 5, "email": "rfernandespinto@gmail.com"},
+            {"avaliacao": 4, "email": "admin@gmail.com"},
+            {"avaliacao": 5, "email": "user3@example.com"}
+        ],
         "nome": "Introdução ao HTML",
         "descricao": "Aprenda as bases do HTML.",
         "tema": "Desenvolvimento Web",
@@ -17,7 +21,10 @@
         "escola": "Escola de Engenharia",
         "departamento": "Ciência da Computação",
         "curso": "Engenharia de Software",
-        "avaliacao": [4, 4, 3],
+        "avaliacao": {
+            "avaliacao": 5,
+            "email": "rfernandespinto@gmail.com"
+        },
         "nome": "CSS Avançado",
         "descricao": "Técnicas avançadas em CSS.",
         "tema": "Desenvolvimento Web",
@@ -35,7 +42,7 @@
         "escola": "Escola de Artes",
         "departamento": "Design Gráfico",
         "curso": "Design de Interfaces",
-        "avaliacao": [5, 5, 5],
+        "avaliacao": [],
         "nome": "JavaScript Básico",
         "descricao": "Fundamentos de JavaScript para designers.",
         "tema": "Programação",
@@ -53,7 +60,11 @@
         "escola": "Escola de Artes",
         "departamento": "Design Gráfico",
         "curso": "Design de Interfaces",
-        "avaliacao": [5, 5, 5],
+        "avaliacao": [
+            {"avaliacao": 5, "email": "user1@example.com"},
+            {"avaliacao": 4, "email": "user2@example.com"},
+            {"avaliacao": 5, "email": "user3@example.com"}
+        ],
         "nome": "JavaScript Básico",
         "descricao": "Fundamentos de JavaScript para designers.",
         "tema": "Programação",

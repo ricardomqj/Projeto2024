@@ -7,11 +7,16 @@ const ComentarioSchema = new Schema({
     data: Date
 }, { _id: false }); 
 
+const AvaliacaoSchema = new Schema({
+    avaliacao: Number,
+    email: String
+}, { _id: false });
+
 const RecursoSchema = new Schema({
     escola: String,
     departamento: String,
     curso: String,
-    avaliacao: [Number],
+    avaliacao: [AvaliacaoSchema],
     nome: String,
     descricao: String,
     tema: String,

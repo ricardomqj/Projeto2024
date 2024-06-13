@@ -42,13 +42,35 @@ block content
           p
             span Avaliação:
             |
-            span #{recurso.avaliacao.length > 0 ? (recurso.avaliacao.reduce((acc, nota) => acc + nota, 0) / recurso.avaliacao.length).toFixed(1) : "Sem avaliações"}
+            if recurso.avaliacao.length > 0
+                - var totalAvaliacao = recurso.avaliacao.reduce((acc, aval) => acc + aval.avaliacao, 0)
+                - var mediaAvaliacao = (totalAvaliacao / recurso.avaliacao.length).toFixed(1)
+                span #{mediaAvaliacao}
+            else
+              span Sem avaliações
           p
             span Arquivos:
             ul
               each file in recurso.ficheiros
                 li
                   a(href=`/download/${file}`) #{file}
+
+        // Evaluation section
+        .evaluation
+          h5 Avaliação
+          if jaAvaliou
+            .alert.alert-warning
+              | Você já avaliou este recurso.
+          else
+            form(action=`/recursos/${recurso._id}/avaliar` method='POST')
+              // Inserir elementos do formulário para avaliação
+              select(name='avaliacao')
+                option(value='1') 1
+                option(value='2') 2
+                option(value='3') 3
+                option(value='4') 4
+                option(value='5') 5
+              button(type='submit') Avaliar
 
         .comments-section
           h2 Comentários

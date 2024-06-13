@@ -77,6 +77,11 @@ router.post('/', auth.authenticateToken, async (req, res) => {
 // Add comment to recurso by ID
 router.post('/:recursoId/comentarios', auth.authenticateToken, RecursoController.addComment);
 
+
+// Add avaliacao to recurso by ID
+router.post('/:recursoId/avaliar',  auth.authenticateToken, RecursoController.addEvaluation);
+
+
 // Remove recurso by ID
 router.delete('/:id', auth.authenticateToken, async (req, res) => {
     try {
