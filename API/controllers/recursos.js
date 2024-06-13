@@ -8,6 +8,10 @@ module.exports.findByNome = nome => {
     return Recurso.find({ nome: nome }).exec();
 }
 
+module.exports.findByAutor = autor => {
+    return Recurso.find({ autor_recurso: new RegExp(autor, 'i') }).exec(); 
+}
+
 module.exports.findById = id => {
     return Recurso.findOne({ _id: id }).exec();
 }
@@ -31,6 +35,35 @@ module.exports.findByTema = tema => {
 module.exports.insert = recurso => {
     return Recurso.create(recurso);
 }
+
+module.exports.addComment = async (req, res) => {
+    try {
+        const { recursoId } = req.params;
+        const { texto , autor } = req.body;
+
+        console.log(`autor: ${autor}`)
+
+        const recurso = await Recurso.findById(recursoId);
+        if (!recurso) {
+            return res.status(404).json({ message: 'Recurso não encontrado' });
+        }
+        
+
+        const novoComentario = {
+            autor,
+            texto,
+            data: new Date()
+        };
+
+        recurso.comentarios.push(novoComentario);
+        await recurso.save();
+
+        res.status(200).json({ message: 'Comentário adicionado com sucesso', recurso });
+    } catch (err) {
+        console.error('Erro ao adicionar comentário:', err);
+        res.status(500).json({ message: 'Erro ao adicionar comentário' });
+    }
+};
 
 module.exports.removeById = id => {
     return Recurso.deleteOne({ id: id });

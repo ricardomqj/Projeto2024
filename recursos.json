@@ -8,12 +8,10 @@
         "descricao": "Aprenda as bases do HTML.",
         "tema": "Desenvolvimento Web",
         "ficheiros": ["introducao.html", "exemplo.css"],
-        "comentarios": {
-            "autor": "João Silva",
-            "texto": "Muito útil para iniciantes.",
-            "data": "12:23 02/06/2024"
-        },
-        "data": "12:23 02/06/2024"
+        "comentarios": [],
+        "data": "12:23 02/06/2024",
+        "autor_recurso": "Mariana Sampaio",
+        "autor_cargo": "aluna"
     },
     {
         "escola": "Escola de Engenharia",
@@ -25,11 +23,13 @@
         "tema": "Desenvolvimento Web",
         "ficheiros": ["layout.css", "animacao.css"],
         "comentarios": {
-            "autor": "Maria Fernandes",
-            "texto": "Ótimas dicas de design.",
+            "autor": "Rui Pinto",
+            "texto": "Muito bom!",
             "data": "12:23 02/06/2024"
-        },
-        "data": "12:23 02/06/2024"
+        }, 
+        "data": "12:23 02/06/2024",
+        "autor_recurso": "Rui Pinto",
+        "autor_cargo": "professor"
     },
     {
         "escola": "Escola de Artes",
@@ -45,7 +45,9 @@
             "texto": "Ajuda prática para começar com JS.",
             "data": "12:23 02/06/2024"
         },
-        "data": "12:23 02/06/2024"
+        "data": "12:23 02/06/2024",
+        "autor_recurso": "Ricardo Jesus",
+        "autor_cargo": "aluno"
     },
     {
         "escola": "Escola de Artes",
@@ -61,6 +63,8 @@
             "texto": "Ajuda prática para começar com JS.",
             "data": "12:23 02/06/2024"
         },
-        "data": "12:23 02/06/2024"
+        "data": "12:23 02/06/2024",
+        "autor_recurso": "Pedro Azedo",
+        "autor_cargo": "aluno"
     }
 ]

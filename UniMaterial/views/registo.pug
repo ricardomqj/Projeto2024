@@ -1,0 +1,41 @@
+doctype html
+html(lang="en")
+  head
+    title Página de Registo
+    link(rel="stylesheet", type="text/css", href="/stylesheets/registo.css")
+  body
+    .register-container
+      form(action="/registo", method="POST")
+        h1 Registo
+        div.form-group
+          label(for="nome") Nome
+          input#nome(type="text", name="nome", required=true)
+
+        div.form-group
+          label(for="email") E-mail
+          input#email(type="email", name="email", required=true)
+
+        div.form-group
+          label(for="escola") Escola
+          input#escola(type="text", name="escola", required=true)
+
+        div.form-group
+          label(for="curso") Curso
+          input#curso(type="text", name="curso", required=true)
+
+        div.form-group
+          label(for="departamento") Departamento
+          input#departamento(type="text", name="departamento", required=true)
+
+        div.form-group
+          label(for="cargo") Cargo
+          input#cargo(type="text", name="cargo", required=true)
+
+        div.form-group
+          label(for="password") Senha
+          input#password(type="password", name="password", required=true)
+
+        button(type="submit") Registrar
+
+        .mt-3.text-center
+              a.btn.btn-secondary(href='/') Voltar atrás

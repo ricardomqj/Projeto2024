@@ -1,6 +1,6 @@
 var mongoose = require("mongoose");
 
-var mongoDB = "mongodb://127.0.0.1/material";
+var mongoDB = "mongodb://mongodb:27017/material";
 mongoose.connect(mongoDB);
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "Erro de conexão ao MongoDB"));
@@ -17,6 +17,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var recursosRouter = require('./routes/recursos');
+var adminRouter = require('./routes/admin');
 
 var app = express();
 
@@ -33,6 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/recursos', recursosRouter);
+app.use('/admin', adminRouter);
 
 app.get('/upload', (req, res) => {
   res.render('upload'); 

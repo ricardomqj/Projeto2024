@@ -3,27 +3,27 @@ extends layout
 block content
   .container.mt-5
     .header.mb-3
-      h1  Pedro Miguel Costa Azevedo
-      p   a106955
+      h1= usuario.nome
+      p= usuario.email
     .content
       .row
         .col-md-6
           .contact-info.mb-3
             h5 Informações de Contato
-            p Nome: Pedro Miguel Costa Azevedo
-            p Email: a106955@uminho.pt
+            p Nome: #{usuario.nome}
+            p Email: #{usuario.email}
           .academic-info
             h5 Informações Acadêmicas
-            p Escola: Engenharia
-            p Departamento: Informática
-            p Cargo: Aluno
+            p Escola: #{usuario.escola}
+            p Departamento: #{usuario.departamento}
+            p Cargo: #{usuario.cargo}
         .col-md-6
           .role-info.mb-3
             h5 Role
-            p Role: User
+            p Role: #{usuario.role}
           .record-info
             h5 Registros
-            p Registro: 28/07/2023
-            p Último Acesso: 20/05/2024
+            p Registro: #{usuario.registro} 
+            p Último Acesso: #{usuario.ultimoAcesso} 
       .edit-button
         a.btn.btn-primary(href='/edit-profile') Editar Perfil

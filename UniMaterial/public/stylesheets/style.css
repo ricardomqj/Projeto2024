@@ -1,65 +1,9 @@
-/* Estilos gerais */
+/* General Styles */
 body {
   font-family: 'Arial', sans-serif;
   background-color: #f4f4f4;
   color: #333;
   padding-top: 20px;
-}
-
-.container {
-  max-width: 600px;  /* Tornar o contêiner mais estreito */
-  margin: 0 auto;  /* Centralizar o contêiner */
-  background-color: #fff;
-  padding: 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-  color: #333;
-  text-align: center; /* Centralizar o título */
-}
-
-.form-control {
-  display: block;
-  width: 100%;
-  padding: 8px;
-  margin-top: 5px;
-  margin-bottom: 20px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-button.btn {
-  width: 100%;  /* Fazer o botão expandir para a largura total */
-  background-color: #007BFF;
-  color: white;
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-button.btn:hover {
-  background-color: #0056b3;
-}
-
-/* Estilos para checkboxes */
-.form-check {
-  margin-bottom: 20px;
-}
-
-.form-check-label {
-  margin-left: 10px;
-}
-
-.container {
-  max-width: 800px;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: #fff;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  border-radius: 8px;
 }
 
 .header h1, .header p {
@@ -76,8 +20,35 @@ button.btn:hover {
   font-size: 18px;
 }
 
+/* Form Styles */
+.form-control {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button.btn {
+  width: 100%;
+  background-color: #007BFF;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button.btn:hover {
+  background-color: #0056b3;
+}
+
+/* Section Styles */
 .contact-info, .academic-info, .role-info, .record-info {
-  background-color: #f0f0f0; /* Cinza claro para os blocos */
+  background-color: #f0f0f0;
   padding: 15px;
   margin-bottom: 10px;
 }
@@ -91,6 +62,7 @@ p {
   color: #666;
 }
 
+/* Edit Button Styles */
 .edit-button {
   text-align: center;
   margin-top: 20px;
@@ -110,3 +82,60 @@ p {
   background-color: #0056b3;
 }
 
+.search-bar {
+  margin-bottom: 20px;
+  display: flex; /* Ensure the input and button are on the same line */
+}
+
+.search-bar input {
+  flex: 1; /* Allow the input to take up all available space */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px 0 0 4px; /* Rounded corners on the left */
+  font-size: 16px; /* Increase font size for better readability */
+}
+
+.search-bar button {
+  padding: 10px 20px; /* Increase padding for better appearance */
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 0 4px 4px 0; /* Rounded corners on the right */
+  cursor: pointer;
+  font-size: 16px; /* Increase font size for better readability */
+}
+
+.search-bar button:hover {
+  background-color: #0056b3;
+}
+
+/* Additional Styles for Comments Section */
+.comments-section {
+  margin-top: 30px;
+}
+
+.comment {
+  background-color: #fff;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+}
+
+.comment-body {
+  margin-top: 10px;
+}
+
+.add-comment-form {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #f4f4f4;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
