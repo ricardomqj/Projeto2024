@@ -1,6 +1,7 @@
 [
     {
-        "escola": "Escola de Engenharia",
+        "restricao": "Escola",
+        "escola": "Escola de Gestão e Economia",
         "departamento": "Ciência da Computação",
         "curso": "Engenharia de Software",
         "avaliacao": [
@@ -19,6 +20,7 @@
         "autor_email": "marS@gmail.com"
     },
     {
+        "restricao": "público",
         "escola": "Escola de Engenharia",
         "departamento": "Ciência da Computação",
         "curso": "Engenharia de Software",
@@ -43,6 +45,7 @@
         "autor_email": "rfernandespinto@gmail.com"
     },
     {
+        "restricao": "público",
         "escola": "Escola de Artes",
         "departamento": "Design Gráfico",
         "curso": "Design de Interfaces",
@@ -64,6 +67,7 @@
         "autor_email": "ricardoj@gmail.com"
     },
     {
+        "restricao": "público",
         "escola": "Escola de Artes",
         "departamento": "Design Gráfico",
         "curso": "Design de Interfaces",

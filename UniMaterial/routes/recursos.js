@@ -28,14 +28,29 @@ router.get('/', auth.getUserMail, async (req, res, next) => {
           'authorization': `Bearer ${token}`
         }
       });
-      const recursos = response.data;
+      const recursosPreFilt = response.data;
       
       console.log(req.user.role);
 
       if(req.user.role === "admin"){
+        const recursos = recursosPreFilt
          res.render('recursosTabAdmin', { recursos });
       }
       else {
+        const recursos = recursosPreFilt.filter(recurso => {
+          switch (recurso.restricao) {
+            case 'público':
+              return true; // Public resources are visible to everyone
+            case 'escola':
+              return recurso.escola === req.user.escola; // Only visible to users from the same school
+            case 'departamento':
+              return recurso.departamento === req.user.departamento; // Only visible to users from the same department
+            case 'curso':
+              return recurso.curso === req.user.curso; // Only visible to users from the same course
+            default:
+              return false; // In case of an undefined restriction, do not show the resource
+        }});
+
         res.render('recursosTab', { recursos });
       }
     }

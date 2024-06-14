@@ -13,6 +13,7 @@ const AvaliacaoSchema = new Schema({
 }, { _id: false });
 
 const RecursoSchema = new Schema({
+    restricao: String,
     escola: String,
     departamento: String,
     curso: String,

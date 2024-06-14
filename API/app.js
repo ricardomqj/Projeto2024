@@ -3,6 +3,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
 
 var recursosRouter = require('./routes/recursos');
 var usersRouter = require('./routes/users');
@@ -26,6 +27,5 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/recursos', recursosRouter);
 app.use('/users', usersRouter);
-
 
 module.exports = app;
