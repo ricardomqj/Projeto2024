@@ -107,7 +107,7 @@ module.exports.removeById = id => {
     return Recurso.deleteOne({ _id: id });
 }
 
-module.exports.updateByName = async (nome, recursoData) => {
-    const result = await Recurso.updateOne({ nome: nome }, recursoData, { new: true });
+module.exports.updateById = async (id, recursoData) => {
+    const result = await Recurso.updateOne({ _id: id }, recursoData, { new: true });
     return result;
 }

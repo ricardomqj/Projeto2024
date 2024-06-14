@@ -78,7 +78,7 @@ block content
             form(action=`/recursos/${recurso._id}/update` method='POST')
                 .form-group
                 label(for="nome") Nome:
-                input.form-control(type="text" id="nome" name="nome" value="#{recurso.nome}" required)
+                input.form-control(type="text" id="nome" name="nome" value=recurso.nome required)
                 
                 .form-group
                 label(for="descricao") Descrição:
@@ -86,19 +86,19 @@ block content
                 
                 .form-group
                 label(for="tema") Tema:
-                input.form-control(type="text" id="tema" name="tema" value="#{recurso.tema}" required)
+                input.form-control(type="text" id="tema" name="tema" value=recurso.tema required)
 
                 .form-group
                 label(for="escola") Escola:
-                input.form-control(type="text" id="escola" name="escola" value="#{recurso.escola}" required)
+                input.form-control(type="text" id="escola" name="escola" value=recurso.escola required)
 
                 .form-group
                 label(for="departamento") Departamento:
-                input.form-control(type="text" id="departamento" name="departamento" value="#{recurso.departamento}" required)
+                input.form-control(type="text" id="departamento" name="departamento" value=recurso.departamento required)
 
                 .form-group
                 label(for="curso") Curso:
-                input.form-control(type="text" id="curso" name="curso" value="#{recurso.curso}" required)
+                input.form-control(type="text" id="curso" name="curso" value=recurso.curso required)
                 
                 button.btn.btn-primary(type="submit") Atualizar Recurso
 

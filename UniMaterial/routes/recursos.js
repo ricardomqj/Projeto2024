@@ -149,6 +149,28 @@ router.post('/:recursoId/avaliar', auth.getUserMail, async (req, res) => {
   }
 });
 
+router.post('/:recursoId/update', async (req, res) => {
+  try {
+    const token = req.cookies.token;
+    const { recursoId } = req.params;
+
+    const updatedRecurso = await axios.post(`${apiURL}/${recursoId}/update`, req.body, {
+      headers: {
+        'authorization': `Bearer ${token}`
+      }
+    });
+
+    if (updatedRecurso) {
+      res.redirect(`/recursos/${recursoId}`);
+    } else {
+      res.status(400).send('Erro ao atualizar recurso');
+    }
+  } catch (error) {
+    console.error('Erro ao atualizar recurso:', error);
+    res.status(500).send('Erro interno do servidor');
+  }
+});
+
 
 
 router.get('/:id/DELETE', async (req, res, next) => {

@@ -93,9 +93,9 @@ router.post('/:recursoId/comentarios', auth.authenticateToken, RecursoController
 router.post('/:recursoId/avaliar',  auth.authenticateToken, RecursoController.addEvaluation);
 
 // Update recurso by nome
-router.put('/:nome', auth.authenticateToken, async (req, res) => {
+router.post('/:id/update', auth.authenticateToken, async (req, res) => {
     try {
-        const recursoAtualizado = await RecursoController.updateByName(req.params.nome, req.body);
+        const recursoAtualizado = await RecursoController.updateById(req.params.id, req.body);
         if (recursoAtualizado.nModified === 0) return res.status(404).json({ message: 'Recurso not found or no changes made' });
         res.status(200).json({ message: 'Recurso updated successfully' });
     } catch (error) {
