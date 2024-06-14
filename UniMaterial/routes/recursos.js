@@ -44,10 +44,39 @@ router.get('/', auth.getUserMail, async (req, res, next) => {
   }
 });
 
+router.get('/:id/editar', auth.getUserMail, async (req, res, next) => {
+  try{
+    const token = req.cookies.token;
+    const response = await axios.get(`${apiURL}?id=${req.params.id}`, {
+      headers: {
+        'authorization': `Bearer ${token}`
+      }
+    });
+
+    const recurso = response.data;
+
+      const jaAvaliou = recurso.avaliacao.some(avaliacao => avaliacao.email === req.user.email);
+
+      
+      const autorRec = recurso.autor_email === req.user.email;
+
+      res.render('recursoPageEdit', {
+        recurso,
+        jaAvaliou,
+        autorRec,
+        usuario: req.user
+      });
+  } catch (error) {
+    next(error);
+  }
+
+});
+
+
 router.get('/:id', auth.getUserMail, async (req, res, next) => {
   try {
     const token = req.cookies.token;
-    console.log(`${apiURL}?id=${req.params.id}`);
+    //console.log(`${apiURL}?id=${req.params.id}`);
     const response = await axios.get(`${apiURL}?id=${req.params.id}`, {
       headers: {
         'authorization': `Bearer ${token}`
@@ -57,9 +86,13 @@ router.get('/:id', auth.getUserMail, async (req, res, next) => {
 
     const jaAvaliou = recurso.avaliacao.some(avaliacao => avaliacao.email === req.user.email);
 
+    
+    const autorRec = recurso.autor_email === req.user.email;
+
     res.render('recursoPage', {
       recurso,
       jaAvaliou,
+      autorRec,
       usuario: req.user
     });
   } catch (error) {
@@ -68,11 +101,17 @@ router.get('/:id', auth.getUserMail, async (req, res, next) => {
 });
 
 router.post('/:recursoId/comentarios',auth.getUserMail, async (req, res, next) => {
+  if (!req.user || !req.user.email) {
+    return res.status(401).send('Usuário não autenticado ou e-mail não disponível');
+  }
+  
   try {
     const token = req.cookies.token;
     const { recursoId } = req.params;
     const { texto } = req.body;
     const  autor  = req.user.nome;
+
+    console.log(`recursoId: ${recursoId}`)
 
     console.log(`autor: ${autor}`)
 
@@ -91,23 +130,42 @@ router.post('/:recursoId/comentarios',auth.getUserMail, async (req, res, next) =
 
 router.post('/:recursoId/avaliar', auth.getUserMail, async (req, res) => {
   const token = req.cookies.token;
-  const { recursoId } = req.params;
+  const { recursoId } = req.params.recursoId;
   const { avaliacao } = req.body;
   const email = req.user.email;
 
+  console.log(`recursoId: ${recursoId}`)
+
   try {
-    const response = await axios.post(`${apiURL}/${recursoId}/avaliar`, { avaliacao , email }, {
+    const response = await axios.post(`${apiURL}/${req.params.recursoId}/avaliar`, { avaliacao , email }, {
       headers: {
         'authorization': `Bearer ${token}`
       }
     });
 
-    res.redirect(`/recursos/${recursoId}`);
+    res.redirect(`/recursos/${req.params.recursoId}`);
   } catch (error) {
     res.status(error.response ? error.response.status : 500).send('Failed to submit evaluation.');
   }
 });
 
+
+
+router.get('/:id/DELETE', async (req, res, next) => {
+  try {
+    const token = req.cookies.token;
+
+    const response = await axios.delete(`${apiURL}/${req.params.id}/DELETE`, {
+      headers: {
+        'authorization': `Bearer ${token}`
+      }
+    });
+
+    res.redirect('/recursos');
+  } catch (error) {
+    next(error);
+  }
+});
 
 
 

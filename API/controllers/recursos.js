@@ -41,19 +41,22 @@ module.exports.addComment = async (req, res) => {
         const { recursoId } = req.params;
         const { texto , autor } = req.body;
 
-        console.log(`autor: ${autor}`)
+        //console.log(`autor: ${autor}`)
 
         const recurso = await Recurso.findById(recursoId);
         if (!recurso) {
             return res.status(404).json({ message: 'Recurso não encontrado' });
         }
         
-
         const novoComentario = {
             autor,
             texto,
             data: new Date()
         };
+
+        console.log('Documento atual:', recurso);
+        console.log('Tipo de "comentarios":', typeof recurso.comentarios);
+
 
         recurso.comentarios.push(novoComentario);
         await recurso.save();
@@ -101,7 +104,7 @@ exports.addEvaluation = async (req, res) => {
 };
 
 module.exports.removeById = id => {
-    return Recurso.deleteOne({ id: id });
+    return Recurso.deleteOne({ _id: id });
 }
 
 module.exports.updateByName = async (nome, recursoData) => {

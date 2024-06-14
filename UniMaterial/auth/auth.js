@@ -14,6 +14,7 @@ module.exports.getUserMail = async function(req, res, next) {
               'Authorization': `Bearer ${token}`
             }
         });
+        console.log(response.data);
         req.user = response.data;  // Armazene os dados do usuário no objeto de requisição
         next();  // Continue para o próximo middleware ou rota
     } catch (error) {

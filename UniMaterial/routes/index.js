@@ -213,7 +213,8 @@ router.post('/files', auth.getUserMail, upload.single('myFile'), (req, res) => {
     ficheiros: [req.file.originalname],
     comentarios: [],
     autor_recurso: req.user.nome,
-    autor_cargo: req.user.cargo
+    autor_cargo: req.user.cargo,
+    autor_email: req.user.email
   };
 
   // Get the token from cookies

@@ -15,7 +15,8 @@
         "comentarios": [],
         "data": "12:23 02/06/2024",
         "autor_recurso": "Mariana Sampaio",
-        "autor_cargo": "aluna"
+        "autor_cargo": "aluna",
+        "autor_email": "marS@gmail.com"
     },
     {
         "escola": "Escola de Engenharia",
@@ -29,14 +30,17 @@
         "descricao": "Técnicas avançadas em CSS.",
         "tema": "Desenvolvimento Web",
         "ficheiros": ["layout.css", "animacao.css"],
-        "comentarios": {
-            "autor": "Rui Pinto",
-            "texto": "Muito bom!",
-            "data": "12:23 02/06/2024"
-        }, 
+        "comentarios": [
+            {
+                "autor": "Rui Pinto",
+                "texto": "Muito bom!",
+                "data": "12:23 02/06/2024"
+            }
+        ], 
         "data": "12:23 02/06/2024",
         "autor_recurso": "Rui Pinto",
-        "autor_cargo": "professor"
+        "autor_cargo": "professor",
+        "autor_email": "rfernandespinto@gmail.com"
     },
     {
         "escola": "Escola de Artes",
@@ -47,14 +51,17 @@
         "descricao": "Fundamentos de JavaScript para designers.",
         "tema": "Programação",
         "ficheiros": ["script.js", "exemplos.js"],
-        "comentarios": {
-            "autor": "Carlos Gomes",
-            "texto": "Ajuda prática para começar com JS.",
-            "data": "12:23 02/06/2024"
-        },
+        "comentarios": [
+            {
+                "autor": "Carlos Gomes",
+                "texto": "Ajuda prática para começar com JS.",
+                "data": "12:23 02/06/2024"
+            }
+        ],
         "data": "12:23 02/06/2024",
         "autor_recurso": "Ricardo Jesus",
-        "autor_cargo": "aluno"
+        "autor_cargo": "aluno",
+        "autor_email": "ricardoj@gmail.com"
     },
     {
         "escola": "Escola de Artes",
@@ -69,13 +76,16 @@
         "descricao": "Fundamentos de JavaScript para designers.",
         "tema": "Programação",
         "ficheiros": ["script.js", "exemplos.js"],
-        "comentarios": {
-            "autor": "Carlos Gomes",
-            "texto": "Ajuda prática para começar com JS.",
-            "data": "12:23 02/06/2024"
-        },
+        "comentarios": [
+            {
+                "autor": "Carlos Gomes",
+                "texto": "Ajuda prática para começar com JS.",
+                "data": "12:23 02/06/2024"
+            }
+        ],
         "data": "12:23 02/06/2024",
         "autor_recurso": "Pedro Azedo",
-        "autor_cargo": "aluno"
+        "autor_cargo": "aluno",
+        "autor_email": "pedro@gmail.com"
     }
 ]

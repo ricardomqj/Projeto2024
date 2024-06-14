@@ -29,7 +29,6 @@ router.get('/', auth.authenticateToken,  async (req, res) => {
             const recurso = await RecursoController.findByDepartamento(req.query.departamento);
             if (!recurso) return res.status(404).json({ message: 'Recurso not found' });
             return res.status(200).json(recurso);
-            return res.status(200).json(recurso);
         }
         if (req.query.curso) {
             const recurso = await RecursoController.findByCurso(req.query.curso);
@@ -44,6 +43,18 @@ router.get('/', auth.authenticateToken,  async (req, res) => {
         
         const recursos = await RecursoController.list();
         res.json(recursos); 
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+
+// Remove recurso by ID
+router.delete('/:id/DELETE', auth.authenticateToken, async (req, res) => {
+    try {
+        const result = await RecursoController.removeById(req.params.id);
+        if (result.deletedCount === 0) return res.status(404).json({ message: 'Recurso not found' });
+        res.status(200).json({ message: 'Recurso deleted successfully' });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -80,18 +91,6 @@ router.post('/:recursoId/comentarios', auth.authenticateToken, RecursoController
 
 // Add avaliacao to recurso by ID
 router.post('/:recursoId/avaliar',  auth.authenticateToken, RecursoController.addEvaluation);
-
-
-// Remove recurso by ID
-router.delete('/:id', auth.authenticateToken, async (req, res) => {
-    try {
-        const result = await RecursoController.removeById(req.params.id);
-        if (result.deletedCount === 0) return res.status(404).json({ message: 'Recurso not found' });
-        res.status(200).json({ message: 'Recurso deleted successfully' });
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-});
 
 // Update recurso by nome
 router.put('/:nome', auth.authenticateToken, async (req, res) => {

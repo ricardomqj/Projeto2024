@@ -1,0 +1,129 @@
+extends layout
+
+block content
+  doctype html
+  html(lang="en")
+    head
+      meta(charset="UTF-8")
+      meta(name="viewport", content="width=device-width, initial-scale=1.0")
+      title Editar Informações do Recurso
+      link(rel="stylesheet", href="/stylesheets/style.css")
+    body
+        .container
+            .header
+            h1 #{recurso.nome}
+            p #{recurso.descricao}
+            
+            .recurso-details
+            p
+                span Tema:
+                | 
+                span #{recurso.tema}
+            p
+                span Escola:
+                | 
+                span #{recurso.escola}
+            p
+                span Departamento:
+                | 
+                span #{recurso.departamento}
+            p
+                span Curso:
+                | 
+                span #{recurso.curso}
+            p
+                span Autor:
+                | 
+                span #{recurso.autor_recurso} - #{recurso.autor_cargo}
+            p
+                span Data:
+                | 
+                span #{new Date(recurso.data).toLocaleDateString("pt-PT")}
+            p
+                span Avaliação:
+                |
+                if recurso.avaliacao.length > 0
+                    - var totalAvaliacao = recurso.avaliacao.reduce((acc, aval) => acc + aval.avaliacao, 0)
+                    - var mediaAvaliacao = (totalAvaliacao / recurso.avaliacao.length).toFixed(1)
+                    span #{mediaAvaliacao}
+                else
+                span Sem avaliações
+            p
+                span Arquivos:
+                ul
+                each file in recurso.ficheiros
+                    li
+                    a(href=`/download/${file}`) #{file}
+
+            // Evaluation section
+            .evaluation
+            h5 Avaliação
+            if jaAvaliou
+                .alert.alert-warning
+                | Você já avaliou este recurso.
+            else
+                form(action=`/recursos/${recurso._id}/avaliar` method='POST')
+                // Inserir elementos do formulário para avaliação
+                select(name='avaliacao')
+                    option(value='1') 1
+                    option(value='2') 2
+                    option(value='3') 3
+                    option(value='4') 4
+                    option(value='5') 5
+                button(type='submit') Avaliar
+
+            .container
+                h1 Editar #{recurso.nome}
+            
+            form(action=`/recursos/${recurso._id}/update` method='POST')
+                .form-group
+                label(for="nome") Nome:
+                input.form-control(type="text" id="nome" name="nome" value="#{recurso.nome}" required)
+                
+                .form-group
+                label(for="descricao") Descrição:
+                textarea.form-control(id="descricao" name="descricao" required)= recurso.descricao
+                
+                .form-group
+                label(for="tema") Tema:
+                input.form-control(type="text" id="tema" name="tema" value="#{recurso.tema}" required)
+
+                .form-group
+                label(for="escola") Escola:
+                input.form-control(type="text" id="escola" name="escola" value="#{recurso.escola}" required)
+
+                .form-group
+                label(for="departamento") Departamento:
+                input.form-control(type="text" id="departamento" name="departamento" value="#{recurso.departamento}" required)
+
+                .form-group
+                label(for="curso") Curso:
+                input.form-control(type="text" id="curso" name="curso" value="#{recurso.curso}" required)
+                
+                button.btn.btn-primary(type="submit") Atualizar Recurso
+
+            a.btn.btn-secondary(href=`/recursos/${recurso._id}`) Cancelar
+            
+            form(action=`/recursos/${recurso._id}/DELETE` method='GET')
+            button.btn.btn-danger(type='submit') Apagar Recurso
+
+            .comments-section
+            h2 Comentários
+            if recurso.comentarios.length > 0
+                each comentario in recurso.comentarios
+                    .comment
+                        .comment-header
+                        span.comment-author #{comentario.autor}
+                        span.comment-date #{new Date(comentario.data).toLocaleDateString("pt-PT")}
+                        .comment-body
+                        p #{comentario.texto}
+                else
+                    p Nenhum comentário ainda. Seja o primeiro a comentar!
+
+            .add-comment-form
+                h3 Adicionar Comentário
+                form(action=`/recursos/${recurso._id}/comentarios` method="post")
+                .form-group
+                    label(for="texto") Comentário:
+                    textarea.form-control(name="texto" rows="4" required)
+                button.btn(type="submit") Adicionar Comentário

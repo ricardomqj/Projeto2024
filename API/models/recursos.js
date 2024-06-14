@@ -24,7 +24,8 @@ const RecursoSchema = new Schema({
     comentarios: [ComentarioSchema], 
     data: Date,
     autor_recurso: String,
-    autor_cargo: String
+    autor_cargo: String,
+    autor_email: String,
 }, { versionKey: false });
 
 module.exports = mongoose.model('Recurso', RecursoSchema);
