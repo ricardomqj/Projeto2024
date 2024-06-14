@@ -84,25 +84,36 @@ p {
 
 .search-bar {
   margin-bottom: 20px;
-  display: flex; /* Ensure the input and button are on the same line */
+  display: flex; 
+  gap: 2px; 
+  align-items: center; 
+}
+
+.search-bar select, .search-bar input, .search-bar button {
+  flex-grow: 1; 
+  flex-basis: 0;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  height: 40px; 
+  display: inline-block;
+}
+
+.search-bar select {
+  border-radius: 4px 0 0 4px; 
 }
 
 .search-bar input {
-  flex: 1; /* Allow the input to take up all available space */
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px 0 0 4px; /* Rounded corners on the left */
-  font-size: 16px; /* Increase font size for better readability */
+  border-radius: 0; 
+  border-left: none; 
 }
 
 .search-bar button {
-  padding: 10px 20px; /* Increase padding for better appearance */
+  border-radius: 0 4px 4px 0; 
+  border-left: none; 
   background-color: #007BFF;
   color: white;
-  border: none;
-  border-radius: 0 4px 4px 0; /* Rounded corners on the right */
   cursor: pointer;
-  font-size: 16px; /* Increase font size for better readability */
 }
 
 .search-bar button:hover {
