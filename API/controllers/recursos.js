@@ -5,11 +5,14 @@ module.exports.list = async () => {
 }
 
 module.exports.findByNome = nome => {
-    return Recurso.find({ nome: nome }).exec();
+    return Recurso.find({ nome: new RegExp(nome, 'i') }).exec(); 
 }
 
 module.exports.findByAutor = autor => {
     return Recurso.find({ autor_recurso: new RegExp(autor, 'i') }).exec(); 
+}
+module.exports.findByTema = tema => {
+    return Recurso.find({ tema: new RegExp(tema, 'i') }).exec(); 
 }
 
 module.exports.findById = id => {
@@ -26,10 +29,6 @@ module.exports.findByDepartamento = departamento => {
 
 module.exports.findByCurso = curso => {
     return Recurso.find({ curso: curso }).exec();
-}
-
-module.exports.findByTema = tema => {
-    return Recurso.find({ tema: tema }).exec();
 }
 
 module.exports.insert = recurso => {
