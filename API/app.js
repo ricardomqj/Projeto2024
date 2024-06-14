@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 
 var recursosRouter = require('./routes/recursos');
 var usersRouter = require('./routes/users');
-
+var cursosRouter = require('./routes/cursos');
 
 var app = express();
 
@@ -27,5 +27,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/recursos', recursosRouter);
 app.use('/users', usersRouter);
+app.use('/cursos', cursosRouter);
 
 module.exports = app;

@@ -55,7 +55,7 @@ router.post('/login', (req, res, next) => {
 router.post('/registo', async (req, res) => {
     try {
 
-        UserModel.register(new UserModel({ nome: req.body.nome, email: req.body.email, role: "user", escola: req.body.escola, curso: req.body.curso, departamento: req.body.departamento, cargo: req.body.cargo, registo: new Date(), ultimoAcesso: new Date()}), 
+        UserModel.register(new UserModel({ nome: req.body.nome, email: req.body.email, role: "user", escola: req.body.escola, curso: req.body.curso, departamento: req.body.departamento, cargo: "aluno", registo: new Date(), ultimoAcesso: new Date()}), 
         req.body.password,  
         function(err, user) {
             if (err) {

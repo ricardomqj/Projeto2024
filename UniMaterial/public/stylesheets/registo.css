@@ -46,3 +46,48 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+
+/* Melhora a visibilidade e interação ao focar nos elementos select */
+select:focus {
+    background-color: white; /* Mantém o fundo branco ao interagir */
+    border-color: #66afe9;  /* Cor da borda para destacar o foco */
+    outline: none;          /* Remove o contorno padrão */
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+
+/* Estilização de option para manter consistência visual ao interagir */
+option {
+    background-color: white; /* Fundo branco padrão */
+    color: black;            /* Texto preto para contraste */
+}
+
+/* Ajustes para a consistência do select entre navegadores */
+select {
+    appearance: none;            /* Desabilita a aparência padrão */
+    -webkit-appearance: none;    /* Específico para WebKit */
+    -moz-appearance: none;       /* Específico para Mozilla */
+    background-image: url('path/to/your/custom-dropdown-icon.svg'); /* Personaliza o ícone do dropdown */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-color: white;     /* Fundo branco para o select */
+    cursor: pointer;             /* Cursor de mão ao passar sobre o elemento */
+    width: 100%;                 /* Usa toda a largura disponível */
+    padding: 8px;                /* Padding para melhor toque */
+    margin-top: 4px;             /* Espaço após o rótulo */
+    box-sizing: border-box;      /* Garante que padding não adicione largura */
+    border: 1px solid #ccc;      /* Borda sutil */
+    border-radius: 4px;          /* Bordas arredondadas para combinar com inputs */
+}
+
+/* Reestiliza o select ao ser ativado */
+select:active, select:focus {
+    background-color: white; /* Fundo branco durante a interação */
+    border-color: #66afe9;
+}
+
+/* Estilos adicionais para option quando ativo ou focado */
+option:active, option:focus {
+    background-color: white; /* Fundo branco ao selecionar */
+    color: black;            /* Cor do texto */
+}
+

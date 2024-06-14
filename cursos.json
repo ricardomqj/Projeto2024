@@ -1,0 +1,17 @@
+[
+    {
+        "escola": "Escola Engenharia",
+        "departamento": "Departamento de  Informática",
+        "curso": "LEI"
+    },
+    {
+        "escola": "Escola Ciências ",
+        "departamento": "Departamento de  Informática",
+        "curso": "LCC"
+    },
+    {
+        "escola": "Escola de Gestão e Economia",
+        "departamento": "Departamento de Ciências Políticas",
+        "curso": "AP"
+    }
+]

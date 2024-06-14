@@ -16,20 +16,19 @@ html(lang="en")
           input#email(type="email", name="email", required=true)
 
         div.form-group
-          label(for="escola") Escola
-          input#escola(type="text", name="escola", required=true)
+          label(for="curso") Curso
+          select#curso(name="curso", required=true)
+            option(value="" id="defaultCursoOption") Selecione um curso
+            each curso in cursos
+              option(value=curso.curso)= curso.curso
 
         div.form-group
-          label(for="curso") Curso
-          input#curso(type="text", name="curso", required=true)
+          label(for="escola") Escola
+          input#escola(type="text", name="escola", readonly=true)
 
         div.form-group
           label(for="departamento") Departamento
-          input#departamento(type="text", name="departamento", required=true)
-
-        div.form-group
-          label(for="cargo") Cargo
-          input#cargo(type="text", name="cargo", required=true)
+          input#departamento(type="text", name="departamento", readonly=true)
 
         div.form-group
           label(for="password") Senha
@@ -38,4 +37,26 @@ html(lang="en")
         button(type="submit") Registrar
 
         .mt-3.text-center
-              a.btn.btn-secondary(href='/') Voltar atrás
+          a.btn.btn-secondary(href='/') Voltar atrás
+
+    script.
+      document.addEventListener('DOMContentLoaded', function() {
+        const selectCurso = document.getElementById('curso');
+        selectCurso.addEventListener('change', function() {
+          const selectedCurso = this.options[this.selectedIndex].text;
+          const cursos = !{JSON.stringify(cursos)};
+          const curso = cursos.find(c => c.curso === selectedCurso);
+          if (curso) {
+            document.getElementById('escola').value = curso.escola;
+            document.getElementById('departamento').value = curso.departamento;
+          }
+        });
+      });
+
+      document.getElementById('curso').addEventListener('change', function() {
+        var defaultOption = document.getElementById('defaultCursoOption');
+        if (this.value !== "") {
+          defaultOption.remove(); // Remove a opção padrão quando um curso é escolhido
+        }
+      });
+

@@ -19,14 +19,11 @@ block content
       .form-group.mb-3
         label(for='privacidade') Privacidade
         select#privacidade.form-control(name='privacidade')
-          option(value='Publico') Público
-          option(value='Privado') Privado
-      .form-check.mb-3
-        input#enviarAgora.form-check-input(type='checkbox', name='enviarAgora', checked)
-        label.form-check-label(for='enviarAgora') Enviar agora
-      .form-check.mb-3
-        input#agendarEnvio.form-check-input(type='checkbox', name='agendarEnvio')
-        label.form-check-label(for='agendarEnvio') Agendar envio
+          option(value='público') Público
+          option(value='escola') Escola
+          option(value='departamento') Departamento
+          option(value="curso") Curso
+
       button.btn.btn-primary(type='submit') Submeter
 
 

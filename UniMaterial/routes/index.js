@@ -48,14 +48,21 @@ router.get('/logout', (req, res) => {
 
 // Página Registo
 
-router.get('/registo', function(req, res, next) {
-  res.render('registo', { title: 'Registo' });
+router.get('/registo', async function(req, res, next) {
+  try {
+    const response = await axios.get(`${apiURL}/cursos`);
+    const cursos = response.data;
+    res.render('registo', { title: 'Registo', cursos: cursos });
+  } catch (error) {
+    console.error('Erro ao buscar cursos:', error);
+    res.status(500).render('error', { error: error });
+  }
 });
 
 router.post('/registo', async (req, res) => {
-  const { nome, email, escola, curso, departamento, cargo,  password} = req.body;
+  const { nome, email, escola, curso, departamento, password} = req.body;
 
-  if(!nome || !email || !escola || !curso || !departamento || !cargo || !password) {
+  if(!nome || !email || !escola || !curso || !departamento || !password) {
     return res.status(400).json({ message: 'All fields are required' });
   }
 
@@ -202,6 +209,7 @@ router.post('/files', auth.getUserMail, upload.single('myFile'), (req, res) => {
   jsonfile.writeFileSync(__dirname + '/../data/dbFiles.json', files, {spaces: 2});
 
   const resourceData = {
+    restricao: req.body.privacidade,
     escola: req.user.escola,
     departamento: req.user.departamento,
     curso: req.user.curso,
