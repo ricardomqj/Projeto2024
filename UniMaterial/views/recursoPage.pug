@@ -13,6 +13,9 @@ block content
         .header
           h1 #{recurso.nome}
           p #{recurso.descricao}
+
+        form(action=`/users/favoritos/${recurso._id}/adicionar` method="post")
+          button.btn.btn-primary(type="submit") Adicionar aos Favoritos
         
         .recurso-details
           p

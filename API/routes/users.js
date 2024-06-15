@@ -69,6 +69,46 @@ router.post('/registo', async (req, res) => {
     }
 });
 
+// Favoritos
+router.post('/favoritos/add', auth.authenticateToken, async (req, res) => {
+    const { recursoId , email } = req.body;
+    try {
+      const user = await UserController.findByEmail(email);
+      if (!user) {
+        return res.status(404).send('Usuário não encontrado');
+      }
+  
+      if (user.favoritos.includes(recursoId)) {
+        return res.status(400).send('Recurso já está nos favoritos');
+      }
+  
+      user.favoritos.push(recursoId);
+      await user.save();
+      res.status(200).send('Recurso adicionado aos favoritos');
+    } catch (err) {
+      console.error('Erro ao adicionar favorito:', err);
+      res.status(500).send('Erro ao adicionar favorito');
+    }
+  });
+  
+  router.post('/favoritos/remove', auth.authenticateToken,  async (req, res) => {
+    const { recursoId } = req.body;
+    try {
+      const user = await UserController.findById(req.user._id);
+      if (!user) {
+        return res.status(404).send('Usuário não encontrado');
+      }
+  
+      user.favoritos.pull(recursoId);
+      await user.save();
+      res.status(200).send('Recurso removido dos favoritos');
+    } catch (err) {
+      console.error('Erro ao remover favorito:', err);
+      res.status(500).send('Erro ao remover favorito');
+    }
+  });
+
+
 router.post('/:email', auth.authenticateToken, UserController.updateByEmail);
 
 
