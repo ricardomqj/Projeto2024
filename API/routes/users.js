@@ -15,13 +15,23 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, UserModel.authenticat
 passport.serializeUser(UserModel.serializeUser());
 passport.deserializeUser(UserModel.deserializeUser());
 
-router.get('/', async (req, res) => {
+router.get('/', auth.authenticateToken, async (req, res) => {
     try{
         const users = await UserController.list();
         res.json(users); 
     }
     catch(error){
         res.status(404).send('users not found');
+    }
+});
+
+router.get('/:id', auth.authenticateToken, async (req, res) => {
+    try {
+        const user = await UserController.findById(req.params.id);
+        res.json(user);
+    }
+    catch(error) {
+        res.status(404).send('user not found')
     }
 });
 

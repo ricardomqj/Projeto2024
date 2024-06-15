@@ -52,7 +52,7 @@ block content
               th Avaliação
           tbody
             each recurso in recursos
-              tr(data-href=`/recursos/${recurso._id}`)
+              tr(data-href=`/users/${recurso._id}`)
                 td= recurso.autor_recurso
                 td= recurso.nome
                 td= recurso.tema

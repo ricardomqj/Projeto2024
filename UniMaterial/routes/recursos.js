@@ -29,7 +29,7 @@ router.get('/', auth.getUserMail, async (req, res, next) => {
     const recursos = response.data;
 
     if(req.user.role === "admin"){
-      res.render('recursosTabAdmin', { recursos });
+      res.render('adminPanel', { recursos });
     } else {
       res.render('recursosTab', { recursos });
     }

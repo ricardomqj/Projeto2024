@@ -11,10 +11,11 @@ exports.list = async () => {
 };
 
 // Get user by ID
-exports.findById = async () => {
+exports.findById = async (id) => {
   try {
-    const user = await User.findById(req.params.id).exec();
+    const user = await User.findById(id).exec();
     if (user) {
+      console.log(user);
       return user;
     } else {
       res.status(404).json({ message: "User not found" });
