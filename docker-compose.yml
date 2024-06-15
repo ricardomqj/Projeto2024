@@ -27,3 +27,14 @@ services:
       - ./users.json:/datasets/users.json
       - ./cursos.json:/datasets/cursos.json
     command: bash -c "mongoimport --host mongodb -d material -c recursos --type json --file /datasets/dataset.json --jsonArray && mongoimport --host mongodb -d material -c cursos --type json --file /datasets/cursos.json --jsonArray && mongoimport --host mongodb -d material -c users --type json --file /datasets/users.json --jsonArray"
+  mongo-export:
+    image: mongo:latest
+    volumes:
+      - ./data/export:/export
+    depends_on:
+      - mongodb
+    entrypoint: sh -c "
+      mongoexport --host mongodb --db material --collection recursos --out /export/recursos.json --jsonArray &&
+      mongoexport --host mongodb --db material --collection cursos --out /export/cursos.json --jsonArray &&
+      mongoexport --host mongodb --db material --collection users --out /export/users.json --jsonArray
+      "
