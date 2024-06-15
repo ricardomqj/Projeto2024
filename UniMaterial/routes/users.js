@@ -24,6 +24,24 @@ router.post('/favoritos/:recursoId/adicionar',auth.getUserMail, async (req, res,
   }
 });
 
+router.get('/profile/:email', async (req, res) => {
+  try {
+      const email = req.params.email;
+      // Aqui, fazemos uma solicitação ao backend para obter os dados do usuário
+      const response = await axios.get(`${apiURL}/profile/${email}`);
+      const usuario = response.data;
+
+      // Renderiza a página 'perfilAutor' com os dados do usuário
+      res.render('perfilAutor', { usuario: usuario });
+  } catch (error) {
+      if (error.response && error.response.status === 404) {
+          res.status(404).send('Usuário não encontrado');
+      } else {
+          res.status(500).send('Erro interno do servidor');
+      }
+  }
+});
+
 router.post(`/alterarCargo/:email/:cargo`,auth.getUserMail, async (req, res, next) => {
   try {
     if (req.user.role !== "admin") {

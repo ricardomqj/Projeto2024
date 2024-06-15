@@ -25,6 +25,21 @@ router.get('/', auth.authenticateToken, async (req, res) => {
     }
 });
 
+router.get('/profile/:email', async (req, res) => {
+  try {
+      const email = req.params.email;
+      const user = await UserModel.findOne({ email: email });
+      if (!user) {
+          return res.status(404).send('Usuário não encontrado');
+      }
+      res.json(user); // Retorna os dados do usuário como JSON
+  } catch ( error) {
+      console.error('Erro ao buscar usuário:', error);
+      res.status(500).send(`Erro interno do servidor: ${error.message}`);
+  }
+});
+
+
 router.get('/token', auth.authenticateToken, function(req, res){
     UserController.findByEmail(req.email).then(user => {
         res.json(user);

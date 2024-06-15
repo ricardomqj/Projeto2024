@@ -1,0 +1,28 @@
+extends layout
+
+block content
+  .container.mt-5
+    .header.mb-3
+      h1= usuario.nome
+      p= usuario.email
+    .content
+      .row
+        .col-md-6
+          .contact-info.mb-3
+            h5 Informações de Contato
+            p Nome: #{usuario.nome}
+            p Email: #{usuario.email}
+          .academic-info
+            h5 Informações Acadêmicas
+            p Escola: #{usuario.escola}
+            p Departamento: #{usuario.departamento}
+            p Curso: #{usuario.curso}
+            p Cargo: #{usuario.cargo}
+        .col-md-6
+          .role-info.mb-3
+            h5 Role
+            p Role: #{usuario.role}
+          .record-info
+            h5 Registros
+            p Registro: #{usuario.registro} 
+            p Último Acesso: #{usuario.ultimoAcesso} 
