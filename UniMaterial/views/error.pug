@@ -1,6 +1,45 @@
-extends layout
+doctype html
+html
+  head
+    title Error Page
+    style.
+      body {
+        background-color: #f8d7da;
+        color: #721c24;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+      .error-container {
+        background-color: #f5c6cb;
+        border: 1px solid #f5c6cb;
+        border-radius: 5px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        margin: 0;
+        font-size: 3em;
+      }
+      h2 {
+        font-size: 2em;
+        margin: 10px 0;
+      }
+      pre {
+        text-align: left;
+        background-color: #f8d7da;
+        padding: 10px;
+        border: 1px solid #f5c6cb;
+        border-radius: 5px;
+        overflow-x: auto;
+      }
 
-block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+  body
+    .error-container
+      h1= message
+      h2= error.status
+      pre #{error.stack}

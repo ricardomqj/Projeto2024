@@ -28,11 +28,10 @@ router.get('/', auth.getUserMail, async (req, res, next) => {
     });
     const recursos = response.data;
 
-    if(req.user.role === "admin"){
-      res.render('recursosTabAdmin', { recursos });
-    } else {
-      res.render('recursosTab', { recursos });
-    }
+    const admin = req.user.role === "admin";
+    
+    res.render('recursosTab', { recursos , admin });
+    
   } catch (error) {
     next(error);
   }
@@ -53,12 +52,14 @@ router.get('/:id/editar', auth.getUserMail, async (req, res, next) => {
 
       
       const autorRec = recurso.autor_email === req.user.email;
+      const admin = req.user.role === "admin";
 
       res.render('recursoPageEdit', {
         recurso,
         jaAvaliou,
         autorRec,
-        usuario: req.user
+        usuario: req.user,
+        admin
       });
   } catch (error) {
     next(error);
@@ -82,12 +83,14 @@ router.get('/:id', auth.getUserMail, async (req, res, next) => {
 
     
     const autorRec = recurso.autor_email === req.user.email;
+    const admin = req.user.role === "admin";
 
     res.render('recursoPage', {
       recurso,
       jaAvaliou,
       autorRec,
-      usuario: req.user
+      usuario: req.user,
+      admin
     });
   } catch (error) {
     next(error);

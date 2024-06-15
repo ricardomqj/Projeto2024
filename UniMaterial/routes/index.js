@@ -31,8 +31,7 @@ router.post('/login', async (req, res) => {
   axios.post(`${apiURL}/users/login`, req.body)
   .then(r=>{
     res.cookie("token", r.data.token, { maxAge: 3600000 });
-    if (r.data.role=="admin") res.redirect("/admin/recursos")
-    else res.redirect("/recursos")
+    res.redirect("/recursos")
   })
   .catch(e=>{
       res.redirect('/?info=wrong')
@@ -75,6 +74,7 @@ router.post('/registo', async (req, res) => {
 // perfil do utilizador
 
 router.get('/perfil', auth.getUserMail , function(req, res, next) {
+  const admin = req.user.role === "admin";
   // Aqui você pode adicionar lógica para buscar dados do usuário do banco de dados, se necessário
   res.render('perfil', {
     title: 'Perfil do Usuário',
@@ -87,8 +87,9 @@ router.get('/perfil', auth.getUserMail , function(req, res, next) {
       curso: req.user.curso,
       cargo: req.user.cargo,
       registro: req.user.registo,
-      ultimoAcesso: req.user.ultimoAcessos
-    }
+      ultimoAcesso: req.user.ultimoAcessos,
+    },
+    admin
   });
 });
 
@@ -134,7 +135,7 @@ router.post('/perfil/:email/update', async (req, res) => {
 
 // Pagina de Noticias
 
-router.get('/noticias',  async  (req, res, next) => {
+router.get('/noticias', auth.getUserMail,  async  (req, res, next) => {
   const token = req.cookies.token;
 
   try {
@@ -145,8 +146,9 @@ router.get('/noticias',  async  (req, res, next) => {
     });
 
     const noticias = response.data;
-  
-    res.render('noticias', { noticias });
+
+    const admin = req.user.role === "admin";
+    res.render('noticias', { noticias , admin });
   } catch (error) {
     next(error);
   }
@@ -163,10 +165,11 @@ router.get('/download/:name', (req, res) => {
   res.download(__dirname + '/../public/fileStore/' + req.params.name)
 })
 
-router.get('/upload', function(req, res, next) {
+router.get('/upload', auth.getUserMail, function(req, res, next) {
   try {
     const files = jsonfile.readFileSync(__dirname + '/../data/dbFiles.json');
-    res.render('upload', { files: files, title: 'Publicar' }); // Adiciona título e passa os arquivos para o template
+    const admin = req.user.role === "admin";
+    res.render('upload', { files: files, title: 'Publicar', admin }); // Adiciona título e passa os arquivos para o template
   } catch (err) {
     console.error('Failed to read dbFiles.json:', err);
     res.render('upload', { files: [], title: 'Publicar' }); // Passa array vazio se houver erro

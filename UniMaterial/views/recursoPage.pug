@@ -75,7 +75,7 @@ block content
                 option(value='5') 5
               button(type='submit') Avaliar
 
-        if autorRec
+        if autorRec || admin
           .edit_recurso
           a.btn.btn-primary(href=`/recursos/${recurso._id}/editar`) Editar Recurso
 

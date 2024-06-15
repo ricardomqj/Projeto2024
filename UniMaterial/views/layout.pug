@@ -26,5 +26,10 @@ html(lang="en")
         a.logout-link(href="/logout")
           i.fa.fa-sign-out-alt
           | Logout
+
+        if admin
+          a.nav-link(href="/admin")
+            i.fa.fa-cogs
+            | Painel de Admin
     #main-content.container
       block content

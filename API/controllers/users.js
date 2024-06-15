@@ -14,6 +14,9 @@ exports.list = async () => {
 exports.findById = async () => {
   try {
     const user = await User.findById(req.params.id).exec();
+
+    console.log(`User found: ${user}`)
+
     if (user) {
       return user;
     } else {
@@ -50,7 +53,7 @@ exports.create = async (req, res) => {
 
 // Update user by ID
 exports.updateByEmail = async (req, res) => {
-  const email = req.params.email; // Acesso direto, sem desestruturação
+  const email = req.params.email; 
   const updateData = req.body;
 
   if (!email) {
@@ -72,6 +75,32 @@ exports.updateByEmail = async (req, res) => {
   } catch (err) {
     console.error('Error updating user by email:', err);
     res.status(400).json({ error: err.message });
+  }
+};
+
+exports.updateCargoByEmail = async (req, res) => {
+  const email = req.params.email;
+  const newCargo = req.body.cargo;
+
+  if (!email || !newCargo) {
+      return res.status(400).json({ error: 'Email and cargo are required' });
+  }
+
+  try {
+      const updatedUser = await User.findOneAndUpdate(
+          { email },
+          { cargo: newCargo },
+          { new: true } // Return the updated user document
+      );
+
+      if (!updatedUser) {
+          return res.status(404).json({ error: 'User not found' });
+      }
+
+      res.json(updatedUser);
+  } catch (error) {
+      console.error('Error updating user cargo:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
   }
 };
 

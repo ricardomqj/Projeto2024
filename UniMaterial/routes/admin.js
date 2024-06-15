@@ -3,50 +3,30 @@ var router = express.Router();
 var axios = require('axios');
 var auth = require('../auth/auth');
 
-const apiURLRecurs = 'http://backend:3001/recursos';
+const apiURL = 'http://backend:3001';
 
 // É PRECISO FAZER FUNÇÃO PARA VERIFICAR SE O UTILIZADOR É ADMIN EM TODAS AQUI E METER COMO MIDELWARE
 
-
-router.get('/recursos', auth.getUserMail , async (req, res, next) => {
+router.get('/', auth.getUserMail , async (req, res, next) => {
   const token = req.cookies.token;
-
   try {
-    if (req.query.autor) {
-      const response = await axios.get(`${apiURLRecurs}?autor=${req.query.autor}`, {
+    if(req.user.role === "admin"){
+      const response = await axios.get(`${apiURL}/users/`, {
         headers: {
           'authorization': `Bearer ${token}`
         }
       });
-      const recursos = response.data;
 
+      const users = response.data;
 
-      res.render('recursosTab', { recursos });
-    } 
-  
-    else {
-        const response = await axios.get(apiURLRecurs, {
-        headers: {
-          'authorization': `Bearer ${token}`
-        }
-      });
-        const recursos = response.data;
-      
-        console.log(req.user.role);
+      const admin = req.user.role === "admin";
 
-        res.render('recursosTabAdmin', { recursos });
+      res.render('adminPainel', { users , admin });
     }
-  } catch (error) {
-    next(error);
-  }
-});
+    else{
+      res.render("error", {message: "Acesso negado", error: {status: "Não tem permissões para aceder a esta página"}});
+    }
 
-router.get('/:id', async (req, res, next) => {
-  try {
-    console.log(`${apiURLRecurs}?id=${req.params.id}`);
-    const response = await axios.get(`${apiURLRecurs}?id=${req.params.id}`);
-    const recurso = response.data;
-    res.render('recursoPage', { recurso });
   } catch (error) {
     next(error);
   }

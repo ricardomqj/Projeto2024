@@ -15,7 +15,7 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, UserModel.authenticat
 passport.serializeUser(UserModel.serializeUser());
 passport.deserializeUser(UserModel.deserializeUser());
 
-router.get('/', async (req, res) => {
+router.get('/', auth.authenticateToken, async (req, res) => {
     try{
         const users = await UserController.list();
         res.json(users); 
@@ -110,6 +110,9 @@ router.post('/favoritos/add', auth.authenticateToken, async (req, res) => {
 
 
 router.post('/:email', auth.authenticateToken, UserController.updateByEmail);
+
+
+router.put('/:email/cargo', auth.authenticateToken, UserController.updateCargoByEmail);
 
 
 module.exports = router;

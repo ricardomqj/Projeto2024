@@ -1,0 +1,33 @@
+extends layout
+
+block content
+    doctype html
+    html
+    head
+        title Admin's Control Panel
+        link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css')
+        link(rel='stylesheet', href='/stylesheets/adminPainel.css')
+    body
+        .container
+        h1.control-panel-title Admin's Control Panel
+        table.table.table-bordered
+            thead
+            tr
+                th Nome
+                th Email
+                th Cargo
+                th Ação
+            tbody
+            each user in users
+                tr
+                td #{user.nome}
+                td #{user.email}
+                td #{user.cargo}
+                    form(action=`/users/alterarCargo/${user.email}/${user.cargo}` method="post")
+                        button.btn.btn-primary(type="submit") Alterar Cargo
+                td
+                    .btn-group
+                    .edit-button
+                        a.btn.btn-primary(href=`/perfil/:${user.email}`) Editar
+                    form(action=`/users/delete/${user._id}` method="post")
+                        button.btn.btn-primary(type="submit") Eliminar
