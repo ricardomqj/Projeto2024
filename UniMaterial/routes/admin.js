@@ -136,6 +136,7 @@ router.post(`/users/delete/:id/:email`, async (req, res) => {
 
 router.post(`/cursos/delete/:id`, async (req, res) => {
   try {
+
     const cursoId = req.params.id;
 
     const deletedCurso = await axios.delete(`${apiURL}/cursos/delete/${cursoId}`, 
@@ -144,10 +145,30 @@ router.post(`/cursos/delete/:id`, async (req, res) => {
         'header': `Bearer ${req.cookies.token}`
       }
     });
+
   } catch (error) {
-    console.error('Erro ao eliminar curso:', error);
+    console.error('Erro ao atualizar perfil:', error);
     res.status(500).send('Erro interno do servidor');
   }
-}
+});
+
+router.post(`/cursos/delete/:id`, async (req, res) => {
+  try {
+
+    const cursoId = req.params.id;
+
+    const deletedCurso = await axios.delete(`${apiURL}/cursos/delete/${cursoId}`, 
+    {
+      headers: {
+        'header': `Bearer ${req.cookies.token}`
+      }
+    });
+    
+  } catch (error) {
+    console.error('Erro', error);
+    res.status(500).send('Erro interno do servidor');
+  }
+});
+
 
 module.exports = router;
