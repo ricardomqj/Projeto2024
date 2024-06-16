@@ -177,37 +177,45 @@ router.get('/upload', auth.getUserMail, function(req, res, next) {
 });
 
 
-router.post('/files', auth.getUserMail, upload.single('myFile'), (req, res) => {
-  console.log("cdir: " + __dirname);
-  let oldPath = __dirname + '/../' + req.file.path;
-  console.log(oldPath);
-  let newPath = __dirname + '/../public/fileStore/' + req.file.originalname;
-  console.log("new: " + newPath);
+router.post('/files', auth.getUserMail, upload.array('myFiles', 10), (req, res) => {
+  var filesData = [];  // Armazena os metadados de todos os arquivos
+  var resourceFiles = [];  // Armazena os nomes dos arquivos para o recurso
 
-  // Mover o arquivo para a pasta fileStore
-  fs.rename(oldPath, newPath, err => {
-    if(err) throw err;
+  req.files.forEach(file => {
+    console.log("cdir: " + __dirname);
+    let oldPath = __dirname + '/../' + file.path;
+    console.log("old path: " + oldPath);
+    let newPath = __dirname + '/../public/fileStore/' + file.originalname;
+    console.log("new path: " + newPath);
+
+    // Mover o arquivo para a pasta fileStore
+    fs.rename(oldPath, newPath, err => {
+      if(err) throw err;
+    });
+
+    var date = new Date().toISOString().substring(0,19);
+    // Adiciona os metadados do arquivo ao array
+    filesData.push({
+      autor : req.user.name,
+      date: date,
+      name: file.originalname,
+      mimetype: file.mimetype,
+      size: file.size,
+      titulo: req.body.titulo,
+    });
+    resourceFiles.push(file.originalname);
   });
 
-  var date = new Date().toISOString().substring(0,19);
   // Leia dbFiles.json ou crie um novo array se não existir
-  var files = [];
   try {
-    files = jsonfile.readFileSync(__dirname + '/../data/dbFiles.json');
+    var files = jsonfile.readFileSync(__dirname + '/../data/dbFiles.json');
   } catch (error) {
     console.error('Failed to read dbFiles.json:', error);
+    var files = [];
   }
-
-  // Adiciona novos dados do arquivo ao array
-  files.push({
-    autor : req.user.name,
-    date: date,
-    name: req.file.originalname,
-    mimetype: req.file.mimetype,
-    size: req.file.size,
-    titulo: req.body.titulo,
-  });
-
+  
+  // Concatena os novos dados de arquivo com os existentes
+  files = files.concat(filesData);
   // Escreve de volta para dbFiles.json
   jsonfile.writeFileSync(__dirname + '/../data/dbFiles.json', files, {spaces: 2});
 
@@ -217,11 +225,11 @@ router.post('/files', auth.getUserMail, upload.single('myFile'), (req, res) => {
     departamento: req.user.departamento,
     curso: req.user.curso,
     avaliacao: [],
-    date: date,
+    date: new Date().toISOString().substring(0,19),
     nome: req.body.titulo,
     descricao: req.body.descricao,
     tema: req.body.tema,
-    ficheiros: [req.file.originalname],
+    ficheiros: resourceFiles,
     comentarios: [],
     autor_recurso: req.user.nome,
     autor_cargo: req.user.cargo,
@@ -244,7 +252,6 @@ router.post('/files', auth.getUserMail, upload.single('myFile'), (req, res) => {
       console.error('Error adding resource:', error);
       res.status(500).send('Erro ao adicionar recurso.');
     });
-
 });
 
 

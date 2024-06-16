@@ -15,7 +15,7 @@ block content
         textarea#descricao.form-control(name='descricao', rows='4')
       .form-group.mb-3
         label(for='file') Upload files
-        input#file.form-control(type='file', name='myFile', required)
+        input#file.form-control(type='file', name='myFiles', multiple, required)
       .form-group.mb-3
         label(for='privacidade') Privacidade
         select#privacidade.form-control(name='privacidade')
@@ -25,5 +25,3 @@ block content
           option(value="curso") Curso
 
       button.btn.btn-primary(type='submit') Submeter
-
-
