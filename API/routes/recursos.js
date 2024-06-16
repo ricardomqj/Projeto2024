@@ -108,7 +108,7 @@ router.post('/:id/update', auth.authenticateToken, async (req, res) => {
 
 router.delete('/deleteAll/:email', auth.authenticateToken, auth.isAdmin, RecursoController.deleteResourcesByUserEmail);
 
-router.delete('/deleteComments/:userEmail', auth.authenticateToken, auth.isAdmin, RecursoController.deleteCommentsByUserEmail);
+router.delete('/deleteComments/:userEmail', auth.authenticateToken, auth.isAdmin, RecursoController.updateCommentsByUserEmail);
 
 
 module.exports = router;

@@ -133,7 +133,7 @@ exports.deleteResourcesByUserEmail = async (req, res) => {
 };
 
 
-exports.deleteCommentsByUserEmail = async (req, res) => {
+exports.updateCommentsByUserEmail = async (req, res) => {
     try {
         const userEmail = req.params.userEmail;
 
@@ -141,20 +141,20 @@ exports.deleteCommentsByUserEmail = async (req, res) => {
             return res.status(400).json({ error: 'User email is required' });
         }
 
-        // Find and update resources, removing comments by the specified userEmail
+        // Update resources, modifying comments by the specified userEmail
         const updateResult = await Recurso.updateMany(
-            { comentarios: { $elemMatch: { autor_email: userEmail } } },
-            { $pull: { comentarios: { autor_email: userEmail } } }
+            { "comentarios.autor_email": userEmail },
+            { $set: { "comentarios.$[elem].autor": "(usuário eliminado)" } },
+            { arrayFilters: [{ "elem.autor_email": userEmail }] }
         );
 
         if (updateResult.modifiedCount === 0) {
             return res.status(404).json({ message: 'No comments found for this user' });
         }
 
-        res.json({ message: `${updateResult.modifiedCount} comments deleted successfully` });
-
+        res.json({ message: `${updateResult.modifiedCount} comments updated successfully` });
     } catch (error) {
-        console.error('Error deleting comments:', error);
+        console.error('Error updating comments:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 };
