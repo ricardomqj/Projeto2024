@@ -10,11 +10,11 @@ block content
         body
             .container
                 h1.control-panel-title Painel de Controlo 
+
                 .row.mt-4
 
-                    .col-md-8  
-                        // User Table (Below the Form)
-                        table.table.table-bordered 
+                    .col-md-8
+                        table.table.table-bordered
                             thead
                                 tr
                                     th Nome
@@ -37,25 +37,45 @@ block content
                                                 form(action=`/users/delete/${user._id}` method="post")
                                                     button.btn.btn-primary(type="submit") Eliminar
 
-
-
                     .col-md-4  
                         .card
                             .card-body
                                 h2.text-center Editar Perfil do Utilizador
-                                form(action=`/admin/edit/${userToEdit.email}/update`, method="POST") // Use correct action URL
+                                form(action=`/admin/perfil/${userToEdit.email}/update`, method="POST")
                                     .form-group.mb-3
                                         label(for='nome') Nome
                                         input.form-control(type='text', name='nome', value=userToEdit.nome, required=true)
+
                                     .form-group.mb-3
                                         label(for='curso') Curso
-                                        input.form-control(type='text', name='curso', value=userToEdit.curso, required=true)
+                                        select.form-control#curso(name='curso')
+                                            option(value=userToEdit.curso, selected=true)= userToEdit.curso
+                                            each curso in cursos
+                                                option(value=curso.curso)= curso.curso
+
                                     .form-group.mb-3
                                         label(for='escola') Escola
-                                        input.form-control(type='text', name='escola', value=userToEdit.escola, required=true)
+                                        input.form-control#escola(type='text', name='escola', value=userToEdit.escola, readonly=true)
+
                                     .form-group.mb-3
                                         label(for='departamento') Departamento
-                                        input.form-control(type='text', name='departamento', value=userToEdit.departamento, required=true)
+                                        input.form-control#departamento(type='text', name='departamento', value=userToEdit.departamento, readonly=true)
+
                                     button.btn.btn-primary.btn-block(type='submit') Atualizar Perfil
                                     .mt-3.text-center
                                         a.btn.btn-secondary(href='/admin') Cancelar
+
+    script.
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const selectCurso = document.getElementById('curso');
+            selectCurso.addEventListener('change', function() {
+            const selectedCurso = this.options[this.selectedIndex].text;
+            const cursos = !{JSON.stringify(cursos)};
+            const curso = cursos.find(c => c.curso === selectedCurso);
+            if (curso) {
+                document.getElementById('escola').value = curso.escola;
+                document.getElementById('departamento').value = curso.departamento;
+            }
+        });
+      });

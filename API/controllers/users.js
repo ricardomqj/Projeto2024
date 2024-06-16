@@ -105,15 +105,18 @@ exports.updateCargoByEmail = async (req, res) => {
 };
 
 // Delete user by ID
-exports.delete = async () => {
+exports.delete = async (req, res, next) => {
   try {
-    const deletedUser = await User.findByIdAndDelete(req.params.id).exec();
+    console.log(`Deleting user with ID: ${req.params.userId}`);
+
+    const deletedUser = await User.findByIdAndDelete(req.params.userId).exec();
+
     if (deletedUser) {
       res.json({ message: "User deleted" });
     } else {
       res.status(404).json({ message: "User not found" });
     }
   } catch (err) {
-    res.status(500).json({ error: err.message });
+      res.status(500).json({ error: err.message });
   }
 };

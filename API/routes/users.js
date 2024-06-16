@@ -129,5 +129,7 @@ router.post('/:email', auth.authenticateToken, UserController.updateByEmail);
 
 router.put('/:email/cargo', auth.authenticateToken, UserController.updateCargoByEmail);
 
+router.delete('/delete/:userId', auth.authenticateToken,  UserController.delete);
+// auth.isAdmin <----------------------
 
 module.exports = router;

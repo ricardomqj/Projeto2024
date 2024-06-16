@@ -54,8 +54,11 @@ router.get('/edit/:email', auth.getUserMail , async (req, res, next) => {
 
       const users = responseUsers.data;
 
+      const responseCursos = await axios.get(`${apiURL}/cursos`);
+      const cursos = responseCursos.data;
 
-      res.render('adminEditPerfile', { userToEdit , users });
+
+      res.render('adminEditPerfile', { userToEdit , users , cursos});
     }
     else{
       res.render("error", {message: "Acesso negado", error: {status: "Não tem permissões para aceder a esta página"}});
@@ -63,6 +66,52 @@ router.get('/edit/:email', auth.getUserMail , async (req, res, next) => {
 
   } catch (error) {
     next(error);
+  }
+} );
+
+router.post('/perfil/:email/update', async (req, res) => {
+  try {
+    const userEmail = req.params.email;
+    const { nome, curso, escola, departamento } = req.body;
+
+    const updatedUser = await axios.post(`${apiURL}/users/${userEmail}`, { nome, curso, escola, departamento } , 
+    {
+      headers: {
+        'authorization': `Bearer ${req.cookies.token}`
+      }
+    });
+
+    if (updatedUser) {
+      res.redirect(`/admin`);
+    } else {
+      res.status(400).send('Erro ao atualizar perfil');
+    }
+  } catch (error) {
+    console.error('Erro ao atualizar perfil:', error);
+    res.status(500).send('Erro interno do servidor');
+  }
+});
+
+router.post(`/users/delete/:id`, async (req, res) => {
+  try {
+
+    console.log("AQUI");  
+    const userId = req.params.id;
+    const deletedUser = await axios.delete(`${apiURL}/users/delete/${userId}`, 
+    {
+      headers: {
+        'authorization': `Bearer ${req.cookies.token}`
+      }
+    });
+
+    if (deletedUser) {
+      res.redirect(`/admin`);
+    } else {
+      res.render("error", {message: "Erro ao eliminar utilizador", error: {status: "Erro ao eliminar utilizador"}});
+    }
+  } catch (error) {
+    console.error('Erro ao eliminar utilizador:', error);
+    res.status(500).send('Erro interno do servidor');
   }
 } );
 
