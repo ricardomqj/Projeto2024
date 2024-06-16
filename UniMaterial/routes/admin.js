@@ -5,8 +5,6 @@ var auth = require('../auth/auth');
 
 const apiURL = 'http://backend:3001';
 
-// É PRECISO FAZER FUNÇÃO PARA VERIFICAR SE O UTILIZADOR É ADMIN EM TODAS AQUI E METER COMO MIDELWARE
-
 router.get('/', auth.getUserMail , async (req, res, next) => {
   const token = req.cookies.token;
   try {
@@ -17,11 +15,14 @@ router.get('/', auth.getUserMail , async (req, res, next) => {
         }
       });
 
+      const responseCursos = await axios.get(`${apiURL}/cursos`);
+
       const users = response.data;
+      const cursos = responseCursos.data;
 
       const admin = req.user.role === "admin";
 
-      res.render('adminPainel', { users , admin });
+      res.render('adminPainel', { users , admin , cursos });
     }
     else{
       res.render("error", {message: "Acesso negado", error: {status: "Não tem permissões para aceder a esta página"}});
@@ -132,5 +133,21 @@ router.post(`/users/delete/:id/:email`, async (req, res) => {
     res.status(500).send('Erro interno do servidor');
   }
 } );
+
+router.post(`/cursos/delete/:id`, async (req, res) => {
+  try {
+    const cursoId = req.params.id;
+
+    const deletedCurso = await axios.delete(`${apiURL}/cursos/delete/${cursoId}`, 
+    {
+      headers: {
+        'header': `Bearer ${req.cookies.token}`
+      }
+    });
+  } catch (error) {
+    console.error('Erro ao eliminar curso:', error);
+    res.status(500).send('Erro interno do servidor');
+  }
+}
 
 module.exports = router;

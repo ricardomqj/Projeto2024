@@ -7,10 +7,8 @@ router.get('/', cursosController.findAll);
 
 router.get('/:id', cursosController.findOne);
 
-router.post('/', auth.authenticateToken, cursosController.create);
+router.post('/', auth.authenticateToken, auth.isAdmin, cursosController.create);
 
-router.put('/:id', auth.authenticateToken, cursosController.update);
-
-router.delete('/:id', auth.authenticateToken, cursosController.delete);
+router.delete('/:id', auth.authenticateToken, auth.isAdmin, cursosController.delete);
 
 module.exports = router;
