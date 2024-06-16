@@ -1,27 +1,38 @@
 extends layout
 
 block content
-  .container.mt-5
-    h1 Publicar
-    form(action='/files', method='post', enctype='multipart/form-data')
-      .form-group.mb-3
-        label(for='titulo') Título
-        input#titulo.form-control(type='text', name='titulo', required)
-      .form-group.mb-3
-        label(for='tema') Tema
-        input#tema.form-control(type='text', name='tema', required)
-      .form-group.mb-3
-        label(for='descricao') Descrição
-        textarea#descricao.form-control(name='descricao', rows='4')
-      .form-group.mb-3
-        label(for='file') Upload files
-        input#file.form-control(type='file', name='myFiles', multiple, required)
-      .form-group.mb-3
-        label(for='privacidade') Privacidade
-        select#privacidade.form-control(name='privacidade')
-          option(value='público') Público
-          option(value='escola') Escola
-          option(value='departamento') Departamento
-          option(value="curso") Curso
+    doctype html
+    html(lang="en")
+      head
+        title Postar
+        style.
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #e9ecef;
+            }
+      body
+        .container.mt-5
+            h1 Publicar
+            form(action='/files', method='post', enctype='multipart/form-data')
+                .form-group.mb-3
+                    label(for='titulo') Título
+                    input#titulo.form-control(type='text', name='titulo', required)
+                .form-group.mb-3
+                    label(for='tema') Tema
+                    input#tema.form-control(type='text', name='tema', required)
+                .form-group.mb-3
+                    label(for='descricao') Descrição
+                    textarea#descricao.form-control(name='descricao', rows='4')
+                .form-group.mb-3
+                    label(for='file') Upload files
+                    input#file.form-control(type='file', name='myFiles', multiple, required)
+                .form-group.mb-3
+                    label(for='privacidade') Privacidade
+                    select#privacidade.form-control(name='privacidade')
+                        option(value='público') Público
+                        option(value='escola') Escola
+                        option(value='departamento') Departamento
+                        option(value="curso") Curso
 
-      button.btn.btn-primary(type='submit') Submeter
+                button.btn.btn-primary(type='submit') Submeter
+
