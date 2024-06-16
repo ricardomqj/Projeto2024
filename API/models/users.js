@@ -9,8 +9,8 @@ const userSchema = new mongoose.Schema({
   curso: { type: String, required: true },
   departamento: { type: String, required: true },
   cargo: { type: String, required: true },
-  registo: { type: Date, required: true, default: Date.now },
-  ultimoAcesso: { type: Date, required: true, default: Date.now },
+  registo: { type: String, required: true },
+  ultimoAcesso: { type: String, required: true},
   favoritos: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Recurso' }] // Adiciona o campo favoritos
 });
 

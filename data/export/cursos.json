@@ -1,1 +1,1 @@
-[]
+[{"_id":{"$oid":"666f6dc999780540076bff5f"},"escola":"Escola Engenharia","departamento":"Departamento de  Informática","curso":"LEI"},{"_id":{"$oid":"666f6dc999780540076bff60"},"escola":"Escola de Gestão e Economia","departamento":"Departamento de Ciências Políticas","curso":"AP"},{"_id":{"$oid":"666f6dc999780540076bff61"},"escola":"Escola Ciências ","departamento":"Departamento de  Informática","curso":"LCC"}]
