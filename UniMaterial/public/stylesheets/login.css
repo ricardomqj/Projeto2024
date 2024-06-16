@@ -1,10 +1,20 @@
 /* Estilização completa do fundo e do centro do card de login */
+body {
+    /* Existing styles */
+    background-color: #e9ecef; 
+    height: 100vh; 
+    display: flex;  
+    justify-content: center; 
+    align-items: center;    
+    margin: 0; 
+    padding: 0; 
+}
+
 .container {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    background: #f4f4f4;
+    background: #e9ecef;
 }
 
 .card {
@@ -14,23 +24,26 @@
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     padding: 20px;
-    margin: 20px;
+    margin: 0; 
+    
 }
 
 .card-body {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: left; /* Horizontally center items within the card */
 }
 
 h2 {
     color: #333;
+    text-align: center; 
 }
 
 /* Estilização dos campos de formulário */
 .form-group {
     width: 100%;
     margin-bottom: 15px;
+    text-align: left;
 }
 
 label {
@@ -42,47 +55,47 @@ label {
 
 input[type='text'],
 input[type='password'] {
-    width: 100%;
+    width: 90%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
 button.btn-primary {
-    width: 100%;
     padding: 10px;
-    background-color: #0056b3;
+    background-color: #1e9be5;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-bottom: 10px;
 }
 
 button.btn-primary:hover {
     background-color: #004085;
 }
 
-/* Estilização do botão secundário */
-button.btn-secondary {
-    width: 100%;
-    padding: 10px;
-    background-color: #6c757d;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    text-align: center;
+.voltar-btn {  
+    display: block;    /* Make it a block element */
+    margin: 10px auto; /* Center it horizontally */
 }
 
 button.btn-secondary:hover {
     background-color: #545b62;
 }
 
+button.btn-primary,
+button.btn-secondary {
+    display: block;     
+    margin: 10px auto;  
+    width: 80%;       
+}
+
 /* Estilização do logo */
 .logo {
-    width: 100px;
+    display: block;
+    margin: auto;
+    width: 300px;
     height: auto;
     margin-bottom: 20px;
 }

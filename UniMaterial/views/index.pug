@@ -11,7 +11,6 @@ html(lang="en")
         .card
           .card-body
             img.logo(src="/fileStore/logo.png" alt="Logo")
-            h2.text-center UniMaterial
             form(action='/login', method='POST')
               .form-group.mb-3
                 label(for='email') Email
@@ -20,5 +19,7 @@ html(lang="en")
                 label(for='password') Password
                 input#password.form-control(type='password', name='password', required=true, placeholder='Digite sua senha')
               button.btn.btn-primary.btn-block(type='submit') Entrar
-            .mt-3.text-center
-              a.btn.btn-secondary(href='/registo') Registrar-se
+              
+            button.btn.btn-primary.btn-block.voltar-btn(type='button', onclick="location.href='/registo'") Registar-se
+              
+              

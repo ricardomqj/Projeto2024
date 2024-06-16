@@ -121,10 +121,6 @@ exports.deleteResourcesByUserEmail = async (req, res) => {
         // Find and delete resources by autor_email
         const deleteResult = await Recurso.deleteMany({ autor_email: userEmail });
 
-        if (deleteResult.deletedCount === 0) {
-            return res.status(404).json({ message: 'No resources found for this user' });
-        }
-
         res.json({ message: `${deleteResult.deletedCount} resources deleted successfully` });
     } catch (error) {
         console.error('Error deleting resources:', error);

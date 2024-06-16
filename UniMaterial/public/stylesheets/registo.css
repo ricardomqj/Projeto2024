@@ -1,5 +1,6 @@
 body {
     font-family: Arial, sans-serif;
+    background-color: #e9ecef;
 }
 
 .register-container {
@@ -7,6 +8,7 @@ body {
     margin: 50px auto;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    align-items: center;
 }
 
 form {
@@ -22,6 +24,14 @@ label {
     font-weight: bold;
 }
 
+
+.voltar-btn {  
+    display: block;    /* Make it a block element */
+    margin: 10px auto; /* Center it horizontally */
+    width: auto;      /* Let it take its natural width */
+}
+
+
 input[type="text"],
 input[type="email"],
 input[type="password"] {
@@ -34,13 +44,15 @@ input[type="password"] {
 }
 
 button {
-    background-color: #007BFF;
+    background-color: #1e9be5;
     color: white;
     border: none;
     padding: 10px;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
+    width: 50%;
+    margin: 10px auto;
 }
 
 button:hover {
