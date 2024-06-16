@@ -94,6 +94,7 @@ router.get('/perfil', auth.getUserMail , function(req, res, next) {
 });
 
 router.get('/perfil/:email', auth.getUserMail, async (req, res) => {
+  const admin = req.user.role === "admin";
   res.render('perfilEdit', {
     title: 'Perfil do Usuário',
     user: {
@@ -106,7 +107,8 @@ router.get('/perfil/:email', auth.getUserMail, async (req, res) => {
       cargo: req.user.cargo,
       registro: req.user.registo,
       ultimoAcesso: req.user.ultimoAcessos
-    }
+    },
+    admin
   });
 });
 
