@@ -9,14 +9,14 @@
     top: 0; 
 }
 
-#main-content {
+#sidebar #main-content {
     margin-left: 250px; /* Push main content to the right */
     width: calc(100% - 250px); /* Adjust width accordingly */
     top: 0; 
 }
 
 /* Estilos para os links da barra lateral com ícones */
-.nav-link {
+#sidebar .nav-link {
     color: #333;
     font-weight: bold;
     padding: 10px 15px;
@@ -24,17 +24,21 @@
     align-items: center;
 }
 
-.nav-link i {
+#sidebar {
+    padding-left: 0;
+}
+
+#sidebar .nav-link i {
     margin-right: 10px; /* Espaço entre ícone e texto */
 }
 
-.nav-link:hover {
+#sidebar .nav-link:hover {
     background-color: #e9ecef;
     color: #007bff;
 }
 
 /* Removendo a cor de fundo azul constante quando ativo */
-.nav-link.active {
+#sidebar .nav-link.active {
     background-color: #007bff;
     color: #fff;
 }
@@ -55,7 +59,7 @@
 }
 
 .logo {
-    width: 80px; /* Adjust as needed */
+    width: 200px; /* Adjust as needed */
     height: auto; /* Maintain aspect ratio */
     display: block;
     margin: 0 auto 20px; /* Center logo */
