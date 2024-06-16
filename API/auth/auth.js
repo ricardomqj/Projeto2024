@@ -1,6 +1,7 @@
 //const router = express.Router();
 const jwt = require('jsonwebtoken');
 const jwtSecret = 'UMinho';
+const User = require('../models/users');
 
 module.exports.authenticateToken = (req, res, next) => {
     //console.log(req.headers['authorization']); // Deve mostrar o cabeçalho completo de autorização
@@ -18,11 +19,13 @@ module.exports.authenticateToken = (req, res, next) => {
     });
 }
 
-module.exports.isAdmin = (req, res, next) => {
-    // Assuming your user object (from the decoded token) has a 'role' property
-    if (req.email && req.role === 'admin') {
-        next(); // User is an admin, proceed
+module.exports.isAdmin = async (req, res, next) => {
+
+    const user =  await User.findOne({ email: req.email });
+
+    if (user.role === 'admin') { 
+        next(); 
     } else {
-        res.sendStatus(403); // Forbidden: User is not authorized
+        res.sendStatus(403); 
     }
 };

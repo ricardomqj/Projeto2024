@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const ComentarioSchema = new Schema({
     autor: String,
     texto: String,
-    data: Date
+    data: Date,
+    autor_email: String
 }, { _id: false }); 
 
 const AvaliacaoSchema = new Schema({

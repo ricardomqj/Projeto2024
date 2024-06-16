@@ -103,6 +103,14 @@ router.post('/:id/update', auth.authenticateToken, async (req, res) => {
     }
 });
 
+
+//Remover recursos por email
+
+router.delete('/deleteAll/:email', auth.authenticateToken, auth.isAdmin, RecursoController.deleteResourcesByUserEmail);
+
+router.delete('/deleteComments/:userEmail', auth.authenticateToken, auth.isAdmin, RecursoController.deleteCommentsByUserEmail);
+
+
 module.exports = router;
 
 

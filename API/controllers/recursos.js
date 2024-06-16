@@ -38,7 +38,7 @@ module.exports.insert = recurso => {
 module.exports.addComment = async (req, res) => {
     try {
         const { recursoId } = req.params;
-        const { texto , autor } = req.body;
+        const { texto , autor , autor_email } = req.body;
 
         //console.log(`autor: ${autor}`)
 
@@ -50,7 +50,8 @@ module.exports.addComment = async (req, res) => {
         const novoComentario = {
             autor,
             texto,
-            data: new Date()
+            data: new Date(),
+            autor_email
         };
 
         console.log('Documento atual:', recurso);
@@ -110,3 +111,50 @@ module.exports.updateById = async (id, recursoData) => {
     const result = await Recurso.updateOne({ _id: id }, recursoData, { new: true });
     return result;
 }
+
+exports.deleteResourcesByUserEmail = async (req, res) => {
+    try {
+        const userEmail = req.params.email;
+        
+        console.log('Deleting resources for user:', userEmail);
+
+        // Find and delete resources by autor_email
+        const deleteResult = await Recurso.deleteMany({ autor_email: userEmail });
+
+        if (deleteResult.deletedCount === 0) {
+            return res.status(404).json({ message: 'No resources found for this user' });
+        }
+
+        res.json({ message: `${deleteResult.deletedCount} resources deleted successfully` });
+    } catch (error) {
+        console.error('Error deleting resources:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};
+
+
+exports.deleteCommentsByUserEmail = async (req, res) => {
+    try {
+        const userEmail = req.params.userEmail;
+
+        if (!userEmail) {
+            return res.status(400).json({ error: 'User email is required' });
+        }
+
+        // Find and update resources, removing comments by the specified userEmail
+        const updateResult = await Recurso.updateMany(
+            { comentarios: { $elemMatch: { autor_email: userEmail } } },
+            { $pull: { comentarios: { autor_email: userEmail } } }
+        );
+
+        if (updateResult.modifiedCount === 0) {
+            return res.status(404).json({ message: 'No comments found for this user' });
+        }
+
+        res.json({ message: `${updateResult.modifiedCount} comments deleted successfully` });
+
+    } catch (error) {
+        console.error('Error deleting comments:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+};

@@ -92,11 +92,13 @@ router.post('/perfil/:email/update', async (req, res) => {
   }
 });
 
-router.post(`/users/delete/:id`, async (req, res) => {
+router.post(`/users/delete/:id/:email`, async (req, res) => {
   try {
 
-    console.log("AQUI");  
+
     const userId = req.params.id;
+    const email = req.params.email;
+
     const deletedUser = await axios.delete(`${apiURL}/users/delete/${userId}`, 
     {
       headers: {
@@ -104,7 +106,23 @@ router.post(`/users/delete/:id`, async (req, res) => {
       }
     });
 
-    if (deletedUser) {
+    console.log(`email: ${email}`);
+
+    const deleteAllRecursos = await axios.delete(`${apiURL}/recursos/deleteAll/${email}`, 
+      {
+        headers: {
+          'authorization': `Bearer ${req.cookies.token}`
+        }
+      });
+
+      const deleteAllComentarios = await axios.delete(`${apiURL}/recursos/deleteComments/${email}`, 
+      {
+        headers: {
+          'authorization': `Bearer ${req.cookies.token}`
+        }
+      });
+
+    if (deletedUser && deleteAllRecursos && deleteAllComentarios) {
       res.redirect(`/admin`);
     } else {
       res.render("error", {message: "Erro ao eliminar utilizador", error: {status: "Erro ao eliminar utilizador"}});

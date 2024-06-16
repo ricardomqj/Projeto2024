@@ -34,7 +34,7 @@ block content
                                             .btn-group
                                                 .edit-button
                                                     a.btn.btn-primary(href=`/admin/edit/:${user.email}`) Editar
-                                                form(action=`/users/delete/${user._id}` method="post")
+                                                form(action=`/users/delete/${user._id}?email=${user.email}` method="post")
                                                     button.btn.btn-primary(type="submit") Eliminar
 
                     .col-md-4  

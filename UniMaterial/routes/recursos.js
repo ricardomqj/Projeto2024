@@ -107,12 +107,13 @@ router.post('/:recursoId/comentarios',auth.getUserMail, async (req, res, next) =
     const { recursoId } = req.params;
     const { texto } = req.body;
     const  autor  = req.user.nome;
+    const autor_email = req.user.email;
 
     console.log(`recursoId: ${recursoId}`)
 
     console.log(`autor: ${autor}`)
 
-    const response = await axios.post(`${apiURL}/${recursoId}/comentarios`, { texto , autor }, {
+    const response = await axios.post(`${apiURL}/${recursoId}/comentarios`, { texto , autor , autor_email }, {
       headers: {
         'authorization': `Bearer ${token}`
       }

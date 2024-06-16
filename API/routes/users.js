@@ -127,9 +127,8 @@ router.post('/favoritos/add', auth.authenticateToken, async (req, res) => {
 router.post('/:email', auth.authenticateToken, UserController.updateByEmail);
 
 
-router.put('/:email/cargo', auth.authenticateToken, UserController.updateCargoByEmail);
+router.put('/:email/cargo', auth.authenticateToken, auth.isAdmin, UserController.updateCargoByEmail);
 
-router.delete('/delete/:userId', auth.authenticateToken,  UserController.delete);
-// auth.isAdmin <----------------------
+router.delete('/delete/:userId', auth.authenticateToken, auth.isAdmin, UserController.delete);
 
 module.exports = router;
