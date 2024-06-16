@@ -1,115 +1,227 @@
 /* General Styles */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #e9ecef;
+
+    font-family: 'Helvetica', 'Arial', sans-serif; /* More modern font */
+    background-color: #f9f9f9; /* Lighter background for better contrast */
     color: #333;
+    margin: 0;
+
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 30px;
 }
 
 .header h1 {
-    color: #007bff;
-    font-size: 24px;
-    text-align: center;
+    color: #000000; /* Slightly darker blue for better readability */
+    font-size: 28px;
+    font-weight: bold;
 }
 
 .header p {
-    text-align: center;
     color: #666;
-    font-size: 16px;
+    font-size: 18px;
     margin-bottom: 20px;
 }
 
-.recurso-details p, .evaluation h5, .comments-section h2 {
-    color: #333;
-    font-weight: bold;
-    margin-top: 15px;
+/* Evaluation Section */
+.evaluation {
+    background-color: #ffffe0; /* Soft yellow background */
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    width: auto;
+    display: inline-block; /* Only as wide as its content */
 }
 
-.recurso-details span, .comment span {
-    color: #555;
+.evaluation h5 {
+    margin-bottom: 5px;
+}
+
+/* Details and Forms */
+.recurso-details {
+    display: flex;
+    justify-content: space-around; /* Space details more effectively */
+    margin-bottom: 20px;
+}
+
+.recurso-details div {
+    margin-right: 10px;
+}
+
+.recurso-details p {
+    margin: 5px 0;
+}
+
+.files-display ul {
+    padding: 0;
+    display: flex;
+    justify-content: center; /* Center files horizontally */
+    list-style-type: none;
+}
+
+.files-display li {
+    margin: 0 10px;
+}
+
+/* Comments Section */
+.comments-section {
+    border-top: 1px solid #ccc; /* Adds a subtle line above comments */
+    padding-top: 10px;
+}
+
+.comments-section .comment {
+    padding-bottom: 10px;
+}
+
+.add-comment-form {
+    background-color: #f0f0f0; /* Subtle background for form area */
+    padding: 15px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.add-comment-form textarea {
+    margin-top: 10px;
 }
 
 /* Button Styles */
 .btn-primary {
     background-color: #007bff;
     color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    text-decoration: none;
-    display: inline-block;
-    margin-top: 10px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .btn-primary:hover {
     background-color: #0056b3;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* Details and Forms */
-.recurso-details ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.recurso-details li {
-    padding: 5px 0;
-}
-
-a {
-    color: #007bff;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-/* Comments Section */
-.comments-section .comment {
-    border-top: 1px solid #ddd;
-    padding-top: 10px;
-    margin-top: 10px;
-}
-
-.comment-header {
+/* Info Group Styling */
+.info-layout h3 {
     font-weight: bold;
-}
-
-.comment-body p {
-    margin-top: 5px;
-}
-
-.add-comment-form textarea {
-    width: 100%;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 8px;
-}
-
-/* Evaluation Section */
-.evaluation {
-    margin-top: 20px;
-}
-
-.evaluation form select {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
     margin-bottom: 10px;
-}
-
-.evaluation .alert {
+  }
+  
+  .info-box {
+    background-color: white;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 10px;
+  }
+  
+  .description-box {
+    background-color: white;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-align: center;
+  }
+  
+  .description-box h3 {
+    font-weight: bold;
+  }
+  
+  /* Comments Section */
+  .comments-section h2 {
+    margin-top: 20px;
+    font-weight: bold;
+  }
+  
+  .comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .comment-author {
+    flex-grow: 1; /* Ensures it takes the necessary space */
+  }
+  
+  .comment-date {
+    flex-shrink: 0; /* Prevents shrinking */
+    margin-left: 10px; /* Ensures some space between the author and the date */
+  }
+  
+  .comment-body p {
+    margin-top: 5px;
+  }
+  
+  .comment-box {
+    background-color: white;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 10px;
+  }  
+  
+  .add-comment-form {
+    background-color: #f0f0f0;
+    padding: 15px;
+    border-radius: 5px;
+    margin-top: 20px;
+  }
+  
+  .add-comment-form h3 {
+    font-weight: bold;
+  }
+/* Evaluation Box Styling */
+.evaluation-box {
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin: 20px 0;
+    text-align: center;
+  }
+  
+  .evaluation-box h3 {
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  .evaluation-form {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .select-evaluation {
+    padding: 5px;
+    width: auto;
+  }
+  
+  .btn-evaluation {
+    padding: 5px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .btn-evaluation:hover {
+    background-color: #0056b3;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .alert.alert-warning {
     color: #856404;
     background-color: #fff3cd;
     border-color: #ffeeba;
     padding: 10px;
-    margin-top: 10px;
     border-radius: 4px;
-}
-
-/* Edit Resource Section */
-.edit_recurso {
-    text-align: center;
-    margin-top: 20px;
-}
-
+    margin-top: 10px;
+  }

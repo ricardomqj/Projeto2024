@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const ComentarioSchema = new Schema({
     autor: String,
     texto: String,
-    data: Date,
+    data: String,
     autor_email: String
 }, { _id: false }); 
 
@@ -24,7 +24,7 @@ const RecursoSchema = new Schema({
     tema: String,
     ficheiros: [String],
     comentarios: [ComentarioSchema], 
-    data: Date,
+    data: String,
     autor_recurso: String,
     autor_cargo: String,
     autor_email: String,
