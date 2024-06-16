@@ -23,7 +23,7 @@ router.get('/', auth.authenticateToken, async (req, res) => {
     catch(error){
         res.status(404).send('users not found');
     }
-});
+});   
 
 router.get('/profile/:email', async (req, res) => {
   try {

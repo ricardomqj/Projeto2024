@@ -32,4 +32,38 @@ router.get('/', auth.getUserMail , async (req, res, next) => {
   }
 });
 
+router.get('/edit/:email', auth.getUserMail , async (req, res, next) => { 
+  const token = req.cookies.token;
+
+  try {
+    if(req.user.role === "admin"){
+      const email = req.params.email;
+      const response = await axios.get(`${apiURL}/users/profile/${email}`, {
+        headers: {
+          'authorization': `Bearer ${token}`
+        }
+      });
+
+      const userToEdit = response.data;
+      
+      const responseUsers = await axios.get(`${apiURL}/users/`, {
+        headers: {
+          'authorization': `Bearer ${token}`
+        }
+      });
+
+      const users = responseUsers.data;
+
+
+      res.render('adminEditPerfile', { userToEdit , users });
+    }
+    else{
+      res.render("error", {message: "Acesso negado", error: {status: "Não tem permissões para aceder a esta página"}});
+    }
+
+  } catch (error) {
+    next(error);
+  }
+} );
+
 module.exports = router;

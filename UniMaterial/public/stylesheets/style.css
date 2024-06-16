@@ -6,6 +6,7 @@ body {
   padding-top: 20px;
 }
 
+
 .header h1, .header p {
   font-weight: bold;
   color: #333;
@@ -169,4 +170,14 @@ p {
 .evaluation select {
   width: auto;
   margin-right: 10px;
+}
+
+.author-link {
+  color: inherit; /* Usa a cor de texto normal do elemento pai */
+  text-decoration: none; /* Remove o sublinhado */
+  cursor: pointer; /* Mantém o cursor como ponteiro para indicar que é clicável */
+}
+
+.author-link:hover {
+  text-decoration: underline; /* Opcional: adicionar sublinhado ao passar o mouse para indicar interatividade */
 }

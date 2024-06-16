@@ -28,6 +28,6 @@ block content
                 td
                     .btn-group
                     .edit-button
-                        a.btn.btn-primary(href=`/perfil/:${user.email}`) Editar
+                        a.btn.btn-primary(href=`/admin/edit/${user.email}`) Editar
                     form(action=`/users/delete/${user._id}` method="post")
                         button.btn.btn-primary(type="submit") Eliminar

@@ -54,7 +54,7 @@ block content
             each recurso in recursos
               tr(data-href=`/recursos/${recurso._id}`)
                 td
-                  a(href=`/users/profile/${recurso.autor_email}`)= recurso.autor_recurso
+                  a.author-link(href=`/users/profile/${recurso.autor_email}`)= recurso.autor_recurso
                 td= recurso.nome
                 td= recurso.tema
                 td

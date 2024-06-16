@@ -1,0 +1,61 @@
+extends layout
+
+block content
+    doctype html
+    html
+        head
+            title Admin's Control Panel
+            link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css')
+            link(rel='stylesheet', href='/stylesheets/adminPainel.css')
+        body
+            .container
+                h1.control-panel-title Painel de Controlo 
+                .row.mt-4
+
+                    .col-md-8  
+                        // User Table (Below the Form)
+                        table.table.table-bordered 
+                            thead
+                                tr
+                                    th Nome
+                                    th Email
+                                    th Cargo
+                                    th Ação
+                            tbody
+                                each user in users
+                                    tr
+                                        td #{user.nome}
+                                        td #{user.email}
+                                        td #{user.cargo}
+                                        td
+                                            form(action=`/users/alterarCargo/${user.email}/${user.cargo}` method="post")
+                                                button.btn.btn-primary(type="submit") Alterar Cargo
+                                        td
+                                            .btn-group
+                                                .edit-button
+                                                    a.btn.btn-primary(href=`/admin/edit/:${user.email}`) Editar
+                                                form(action=`/users/delete/${user._id}` method="post")
+                                                    button.btn.btn-primary(type="submit") Eliminar
+
+
+
+                    .col-md-4  
+                        .card
+                            .card-body
+                                h2.text-center Editar Perfil do Utilizador
+                                form(action=`/admin/edit/${userToEdit.email}/update`, method="POST") // Use correct action URL
+                                    .form-group.mb-3
+                                        label(for='nome') Nome
+                                        input.form-control(type='text', name='nome', value=userToEdit.nome, required=true)
+                                    .form-group.mb-3
+                                        label(for='curso') Curso
+                                        input.form-control(type='text', name='curso', value=userToEdit.curso, required=true)
+                                    .form-group.mb-3
+                                        label(for='escola') Escola
+                                        input.form-control(type='text', name='escola', value=userToEdit.escola, required=true)
+                                    .form-group.mb-3
+                                        label(for='departamento') Departamento
+                                        input.form-control(type='text', name='departamento', value=userToEdit.departamento, required=true)
+                                    button.btn.btn-primary.btn-block(type='submit') Atualizar Perfil
+                                    .mt-3.text-center
+                                        a.btn.btn-secondary(href='/admin') Cancelar

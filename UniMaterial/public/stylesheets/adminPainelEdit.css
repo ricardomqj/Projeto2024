@@ -1,0 +1,75 @@
+body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+  }
+  
+  .container {
+    margin-top: 50px;
+  }
+  
+  .control-panel-title {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  .btn-group {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .btn-alterar-cargo {
+    background-color: #b8b632;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+  }
+  
+  .btn-editar {
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+  }
+  
+  .btn-remover {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+  }
+  
+
+  .card {
+    /* Adjust as needed for your form's height */
+    /* Ensure it's tall enough to cover the table */
+    min-height: 300px; 
+    position: relative; /* Keep it in the document flow */
+    z-index: 10; /* Ensure it's above the table */
+    background-color: white; /* Make the form background white to cover the table */
+    padding: 20px; /* Optional: add padding for better appearance */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Optional: add a subtle shadow */
+}
+
+table {
+    position: relative; /* This is crucial for z-index to work */
+    z-index: 1; /* Make it lower than the form */
+    margin-top: 350px; /* Adjust margin-top to match the form height and create space */
+}
