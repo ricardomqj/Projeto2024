@@ -35,7 +35,6 @@ block content
               .info-section.record-info
                 h5 Registros
                 p Registro: #{usuario.registro}
-                p Último Acesso: #{usuario.ultimoAcesso}
+                p Último Acesso: #{usuario.ultimoAcesso}          
           .edit-button
-            a.btn.btn-primary(href=`/perfil/${usuario.email}/editar`) Editar Perfil
-          
+            a.btn.btn-primary(href=`/perfil/${usuario.email}`) Editar Perfil
