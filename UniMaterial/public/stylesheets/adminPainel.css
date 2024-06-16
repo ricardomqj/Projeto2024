@@ -56,3 +56,7 @@ body {
     border-radius: 5px;
   }
   
+  .cursos-section {
+    max-height: 300px; /* Adjust the maximum height as needed */
+    overflow-y: auto; /* Add a vertical scrollbar when content exceeds the height */
+}

@@ -3,31 +3,59 @@ extends layout
 block content
     doctype html
     html
-    head
-        title Admin's Control Panel
-        link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css')
-        link(rel='stylesheet', href='/stylesheets/adminPainel.css')
-    body
-        .container
-        h1.control-panel-title Admin's Control Panel
-        table.table.table-bordered
-            thead
-            tr
-                th Nome
-                th Email
-                th Cargo
-                th Ação
-            tbody
-            each user in users
-                tr
-                td #{user.nome}
-                td #{user.email}
-                td #{user.cargo}
-                    form(action=`/users/alterarCargo/${user.email}/${user.cargo}` method="post")
-                        button.btn.btn-primary(type="submit") Alterar Cargo
-                td
-                    .btn-group
-                    .edit-button
-                        a.btn.btn-primary(href=`/admin/edit/${user.email}`) Editar
-                    form(action=`/admin/users/delete/${user._id}/${user.email}` method="post")
-                        button.btn.btn-primary(type="submit") Eliminar
+        head
+            title Admin's Control Panel
+            link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css')
+            link(rel='stylesheet', href='/stylesheets/adminPainel.css')
+        body
+            .container
+                h1.control-panel-title Admin's Control Panel
+
+                
+                h2.text-center Cursos
+                .cursos-section.mb-4
+                    .table-responsive 
+                        table.table.table-bordered
+                            thead
+                                tr
+                                    th Curso
+                                    th Escola
+                                    th Departamento
+                                    th Eliminar Curso
+                            tbody
+                                each curso in cursos
+                                    tr
+                                        td #{curso.curso}
+                                        td #{curso.escola}
+                                        td #{curso.departamento}
+                                        td
+                                            form(action=`/admin/cursos/delete/${curso._id}` method="post")
+                                                button.btn.btn-danger(type="submit") Eliminar
+
+                    
+                a.btn.btn-success.mt-2(href="/admin/cursos/create") Adicionar Novo Curso
+
+                
+                h2.text-center Utilizadores
+                table.table.table-bordered
+                    thead
+                        tr
+                            th Nome
+                            th Email
+                            th Cargo
+                            th 
+                    tbody
+                        each user in users
+                            tr
+                                td #{user.nome}
+                                td #{user.email}
+                                td #{user.cargo}
+                                td
+                                    form(action=`/users/alterarCargo/${user.email}/${user.cargo}` method="post")
+                                        button.btn.btn-primary(type="submit") Alterar Cargo
+                                td
+                                    .btn-group
+                                        .edit-button
+                                            a.btn.btn-primary(href=`/admin/edit/:${user.email}`) Editar
+                                        form(action=`/users/delete/${user._id}?email=${user.email}` method="post")
+                                            button.btn.btn-primary(type="submit") Eliminar
