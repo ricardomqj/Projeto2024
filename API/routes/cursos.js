@@ -9,6 +9,8 @@ router.get('/:id', cursosController.findOne);
 
 router.post('/', auth.authenticateToken, auth.isAdmin, cursosController.create);
 
-router.delete('/:id', auth.authenticateToken, auth.isAdmin, cursosController.delete);
+router.delete('/:cursoNome', auth.authenticateToken, auth.isAdmin, cursosController.delete);
+
+
 
 module.exports = router;

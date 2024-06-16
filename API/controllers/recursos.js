@@ -148,10 +148,6 @@ exports.updateCommentsByUserEmail = async (req, res) => {
             { arrayFilters: [{ "elem.autor_email": userEmail }] }
         );
 
-        if (updateResult.modifiedCount === 0) {
-            return res.status(404).json({ message: 'No comments found for this user' });
-        }
-
         res.json({ message: `${updateResult.modifiedCount} comments updated successfully` });
     } catch (error) {
         console.error('Error updating comments:', error);

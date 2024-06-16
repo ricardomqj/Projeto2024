@@ -11,6 +11,28 @@ block content
             .container
                 h1.control-panel-title Painel de Controlo 
 
+                h2.text-center Cursos
+                .cursos-section.mb-4
+                    .table-responsive 
+                        table.table.table-bordered
+                            thead
+                                tr
+                                    th Curso
+                                    th Escola
+                                    th Departamento
+                                    th Eliminar Curso
+                            tbody
+                                each curso in cursos
+                                    tr
+                                        td #{curso.curso}
+                                        td #{curso.escola}
+                                        td #{curso.departamento}
+                                        td
+                                            form(action=`/admin/cursos/delete/${curso.curso}` method="post")
+                                                button.btn.btn-danger(type="submit") Eliminar
+                a.btn.btn-success.mt-2(href="/admin/adicionarCurso") Adicionar Novo Curso
+
+                h2.text-center Utilizadores
                 .row.mt-4
 
                     .col-md-8
@@ -34,7 +56,7 @@ block content
                                             .btn-group
                                                 .edit-button
                                                     a.btn.btn-primary(href=`/admin/edit/:${user.email}`) Editar
-                                                form(action=`/users/delete/${user._id}?email=${user.email}` method="post")
+                                                form(action=`/admin/users/delete/${user._id}?email=${user.email}` method="post")
                                                     button.btn.btn-primary(type="submit") Eliminar
 
                     .col-md-4  

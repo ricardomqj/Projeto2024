@@ -70,6 +70,8 @@ router.get('/edit/:email', auth.getUserMail , async (req, res, next) => {
   }
 } );
 
+//editar user
+
 router.post('/perfil/:email/update', async (req, res) => {
   try {
     const userEmail = req.params.email;
@@ -92,6 +94,8 @@ router.post('/perfil/:email/update', async (req, res) => {
     res.status(500).send('Erro interno do servidor');
   }
 });
+
+// eliminar user
 
 router.post(`/users/delete/:id/:email`, async (req, res) => {
   try {
@@ -134,40 +138,82 @@ router.post(`/users/delete/:id/:email`, async (req, res) => {
   }
 } );
 
-router.post(`/cursos/delete/:id`, async (req, res) => {
+// ELiminar curso
+
+router.post(`/cursos/delete/:cursoNome`, async (req, res) => {
   try {
 
-    const cursoId = req.params.id;
+    const cursoNome = req.params.cursoNome;
 
-    const deletedCurso = await axios.delete(`${apiURL}/cursos/delete/${cursoId}`, 
-    {
+    const deletedCurso = await axios.delete(`${apiURL}/cursos/${cursoNome}`, {
       headers: {
-        'header': `Bearer ${req.cookies.token}`
+          'Authorization': `Bearer ${req.cookies.token}` 
       }
-    });
+  });
 
-  } catch (error) {
-    console.error('Erro ao atualizar perfil:', error);
-    res.status(500).send('Erro interno do servidor');
-  }
-});
-
-router.post(`/cursos/delete/:id`, async (req, res) => {
-  try {
-
-    const cursoId = req.params.id;
-
-    const deletedCurso = await axios.delete(`${apiURL}/cursos/delete/${cursoId}`, 
-    {
-      headers: {
-        'header': `Bearer ${req.cookies.token}`
-      }
-    });
+  res.redirect(`/admin`);
     
   } catch (error) {
     console.error('Erro', error);
     res.status(500).send('Erro interno do servidor');
   }
+});
+
+// Adicionar curso
+
+router.get('/adicionarCurso', auth.getUserMail , async (req, res, next) => {
+  const token = req.cookies.token;
+  try {
+    if(req.user.role === "admin"){
+      const response = await axios.get(`${apiURL}/users/`, {
+        headers: {
+          'authorization': `Bearer ${token}`
+        }
+      });
+
+      const responseCursos = await axios.get(`${apiURL}/cursos`);
+
+      const users = response.data;
+      const cursos = responseCursos.data;
+
+      const admin = req.user.role === "admin";
+
+      res.render('adminAdicionarCurso', { users , admin , cursos });
+    }
+    else{
+      res.render("error", {message: "Acesso negado", error: {status: "Não tem permissões para aceder a esta página"}});
+    }
+
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.post(`/cursos/create`, async (req, res) => {
+  try {
+
+    const { curso, departamento, escola } = req.body;
+
+      if( curso === "" || departamento === "" || escola === ""){
+          res.render("error", {message: "Erro ao adicionar curso", error: {status: "Preencha todos os campos"}});
+      }
+
+      const response = await axios.post(`${apiURL}/cursos`, { curso, departamento, escola }, {
+          headers: {
+              'Authorization': `Bearer ${req.cookies.token}` // Assuming you're using token-based auth
+          }
+      });
+
+        if (response.status === 201) { // 201 Created
+            res.redirect('/admin'); // Redirect back to the admin panel
+        } else {
+            res.render("error", {message: "Erro ao adicionar curso", error: {status: "Erro ao adicionar curso"}}); 
+        }
+
+    } catch (error) {
+        console.error('Error creating course:', error);
+        res.status(500).send('Internal Server Error'); 
+    }
 });
 
 

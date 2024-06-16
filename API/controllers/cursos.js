@@ -52,12 +52,11 @@ exports.update = async (req, res) => {
 // Excluir um curso pelo ID
 exports.delete = async (req, res) => {
     try {
-        const curso = await Cursos.findByIdAndDelete(req.params.id);
-        if (!curso) {
-            res.status(404).send({ message: 'Curso não encontrado!' });
-        } else {
-            res.status(200).send({ message: 'Curso excluído com sucesso!' });
-        }
+        const cursoNome = req.params.cursoNome; // Change from id to cursoNome
+        const deletedCurso = await Cursos.findOneAndDelete({ curso: cursoNome })
+        
+        res.status(200).send(deletedCurso);
+
     } catch (error) {
         res.status(500).send(error);
     }
