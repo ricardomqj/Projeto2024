@@ -1,0 +1,117 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+.header h1 {
+    color: #007bff;
+    font-size: 24px;
+    text-align: center;
+}
+
+.header p {
+    text-align: center;
+    color: #666;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.recurso-details p, .evaluation h5, .comments-section h2 {
+    color: #333;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.recurso-details span, .comment span {
+    color: #555;
+}
+
+/* Button Styles */
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Details and Forms */
+.recurso-details ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.recurso-details li {
+    padding: 5px 0;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Comments Section */
+.comments-section .comment {
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+    margin-top: 10px;
+}
+
+.comment-header {
+    font-weight: bold;
+}
+
+.comment-body p {
+    margin-top: 5px;
+}
+
+.add-comment-form textarea {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px;
+}
+
+/* Evaluation Section */
+.evaluation {
+    margin-top: 20px;
+}
+
+.evaluation form select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.evaluation .alert {
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+
+/* Edit Resource Section */
+.edit_recurso {
+    text-align: center;
+    margin-top: 20px;
+}
+
