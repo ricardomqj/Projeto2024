@@ -4,6 +4,7 @@ var axios = require('axios');
 var auth = require('../auth/auth');
 
 const apiURL = 'http://backend:3001/recursos';
+const apiURLUsers = 'http://backend:3001/users';
 
 
 // Rota principal
@@ -40,6 +41,33 @@ router.get('/', auth.getUserMail, async (req, res, next) => {
     next(error);
   }
 });
+
+router.get('/favorites', auth.getUserMail, async (req, res, next) => {
+  try {
+    const token = req.cookies.token;
+    console.log("entrou no favorites");
+    const email = req.user.email;
+    console.log(`axios.get(${apiURLUsers}/${email}/favs)`)
+    const favResponse = await axios.get(`${apiURLUsers}/${email}/favs`, {
+      headers: {
+        'authorization': `Bearer ${token}`
+      }
+    });
+    console.log("Já recebeu a resposta");
+
+    const recursos = favResponse.data;
+    console.log("Recursos: ", recursos);
+
+
+    res.render('recursosTab', { recursos });
+
+  } catch (error) {
+    console.log("Erro no favorites");
+    next(error);
+  }
+
+
+}); 
 
 router.get('/:id/editar', auth.getUserMail, async (req, res, next) => {
   try{
@@ -89,7 +117,10 @@ router.get('/:id', auth.getUserMail, async (req, res, next) => {
     const autorRec = recurso.autor_email === req.user.email;
     const admin = req.user.role === "admin";
 
+    const listaFavsLoggedUser = req.user.favoritos;
+
     res.render('recursoPage', {
+      listaFavsLoggedUser,
       recurso,
       jaAvaliou,
       autorRec,

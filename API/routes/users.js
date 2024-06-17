@@ -39,6 +39,15 @@ router.get('/profile/:email', async (req, res) => {
   }
 });
 
+router.get('/:email/favs', auth.authenticateToken, async (req, res) => {
+  try {
+    console.log("estou na API em routes/users.js em users/:email/favs");
+    const listaFavs = await UserController.getUserFavoritesByEmail(req.params.email);
+    res.json(listaFavs);
+  } catch (error) {
+    res.status(500).send('Erro ao buscar favoritos');
+  }
+});
 
 router.get('/token', auth.authenticateToken, function(req, res){
     UserController.findByEmail(req.email).then(user => {
@@ -106,14 +115,19 @@ router.post('/favoritos/add', auth.authenticateToken, async (req, res) => {
     }
   });
   
-  router.post('/favoritos/remove', auth.authenticateToken,  async (req, res) => {
-    const { recursoId } = req.body;
+  router.post('/favoritos/:recursoId/remove', auth.authenticateToken,  async (req, res) => {
+    console.log("API/routes/users.js em favoritos/remove");
+    const { recursoId , email } = req.body;
+    const emailAddr = req.params.email;
     try {
-      const user = await UserController.findById(req.user._id);
+      console.log("emailAddr -> ", emailAddr);
+      console.log("email(body) -> " + email);
+      const user = await UserController.findByEmail(email);
       if (!user) {
         return res.status(404).send('Usuário não encontrado');
+      } else {
+        console.log("user encontrado");
       }
-  
       user.favoritos.pull(recursoId);
       await user.save();
       res.status(200).send('Recurso removido dos favoritos');

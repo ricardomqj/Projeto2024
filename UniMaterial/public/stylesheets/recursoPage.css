@@ -225,3 +225,13 @@ body {
     border-radius: 4px;
     margin-top: 10px;
   }
+
+  .file-link, .file-link:visited {
+    color: black; /* ou outra cor que você preferir */
+    text-decoration: none; /* remove o sublinhado */
+}
+
+.file-link:hover {
+    text-decoration: underline; /* opcional, para indicar interatividade ao passar o mouse */
+    color: darkgray; /* opcional, muda a cor ao passar o mouse */
+}

@@ -12,7 +12,16 @@ block content
       .container
         .header
           h1 #{recurso.nome}
-          p Publicado por #{recurso.autor_cargo}  #{recurso.autor_recurso}
+          p Publicado por #{recurso.autor_cargo} #{recurso.autor_recurso}
+
+        - const isFavorito = listaFavsLoggedUser.includes(recurso._id);
+
+        form(action=`/users/favoritos/${recurso._id}/${isFavorito ? 'remover' : 'adicionar'}` method="post")
+          button.btn.btn-primary(type="submit") 
+            if isFavorito 
+              | Remover dos Favoritos
+            else
+              | Adicionar aos Favoritos
 
         // Detalhes do recurso organizados em duas colunas
         .info-layout
@@ -34,8 +43,10 @@ block content
           ul.file-list
             each file in recurso.ficheiros
               li
-                a(href=`/download/${file}`) #{file}
-
+                a(href=`/download/${file}`, class="file-link")
+                  img(src="/fileStore/file1.png", alt=file, style="width: 100px; height: auto;")
+                  div(style="text-align: center;") #{file}
+                  
         // Avaliação no topo da página movida para cá
         .evaluation-box
           h3 Deixe a sua avaliação
