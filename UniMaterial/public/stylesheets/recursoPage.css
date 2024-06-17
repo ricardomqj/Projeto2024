@@ -44,6 +44,23 @@ body {
      
 }
 
+.title-heart{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.heart-button {
+    color: #007bff;
+    padding: 8px 16px;
+    border-radius: 0px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 10px;
+}
+
+
 /* Evaluation Section */
 .evaluation {
     background-color: #ffffe0; /* Soft yellow background */

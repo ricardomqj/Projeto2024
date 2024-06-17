@@ -24,15 +24,16 @@ router.post('/favoritos/:recursoId/adicionar',auth.getUserMail, async (req, res,
   }
 });
 
-router.get('/profile/:email', async (req, res) => {
+router.get('/profile/:email',  auth.getUserMail , async (req, res) => {
   try {
+      const admin = req.user.role === "admin";
       const email = req.params.email;
       // Aqui, fazemos uma solicitação ao backend para obter os dados do usuário
       const response = await axios.get(`${apiURL}/profile/${email}`);
       const usuario = response.data;
 
       // Renderiza a página 'perfilAutor' com os dados do usuário
-      res.render('perfilAutor', { usuario: usuario });
+      res.render('perfilAutor', { usuario: usuario , admin });
   } catch (error) {
       if (error.response && error.response.status === 404) {
           res.status(404).send('Usuário não encontrado');

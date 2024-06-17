@@ -67,21 +67,21 @@ router.get('/', auth.getUserMail, async (req, res, next) => {
 router.get('/favorites', auth.getUserMail, async (req, res, next) => {
   try {
     const token = req.cookies.token;
-    console.log("entrou no favorites");
+    const admin = req.user.role === "admin";
     const email = req.user.email;
-    console.log(`axios.get(${apiURLUsers}/${email}/favs)`)
+    
     const favResponse = await axios.get(`${apiURLUsers}/${email}/favs`, {
       headers: {
         'authorization': `Bearer ${token}`
       }
     });
-    console.log("Já recebeu a resposta");
+    
 
     const recursos = favResponse.data;
-    console.log("Recursos: ", recursos);
+   
 
 
-    res.render('recursosTab', { recursos });
+    res.render('recursosTab', { recursos , admin});
 
   } catch (error) {
     console.log("Erro no favorites");
