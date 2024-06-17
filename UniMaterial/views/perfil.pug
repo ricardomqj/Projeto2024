@@ -38,3 +38,44 @@ block content
                 p Último Acesso: #{usuario.ultimoAcesso}          
           .edit-button
             a.btn.btn-primary(href=`/perfil/${usuario.email}`) Editar Perfil
+
+        script.
+          document.addEventListener('DOMContentLoaded', function() {
+            const searchType = document.getElementById('searchType');
+            const searchInput = document.getElementById('searchInput');
+            searchType.addEventListener('change', function() {
+              searchInput.name = this.value;  // Muda o nome do campo de entrada baseado na seleção
+              searchInput.placeholder = 'Pesquisar por ' + this.options[this.selectedIndex].text.toLowerCase();
+            });
+          });
+          document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('tr[data-href]').forEach(row => {
+              row.addEventListener('click', function() {
+                window.location.href = this.dataset.href;
+              });
+            });
+          });
+
+        table.table.table-hover
+          thead
+            tr
+              th Autor
+              th Nome
+              th Tema
+              th Número de Avaliações
+              th Avaliação 
+          tbody
+            each recurso in recursos
+              tr(data-href=`/recursos/${recurso._id}`)
+                td
+                  a.author-link(href=`/users/profile/${recurso.autor_email}`)= recurso.autor_recurso
+                td= recurso.nome
+                td= recurso.tema
+                td= recurso.avaliacao.length
+                td
+                  if recurso.avaliacao.length > 0
+                    - var totalAvaliacao = recurso.avaliacao.reduce((acc, val) => acc + val.avaliacao, 0)
+                    - var mediaAvaliacao = (totalAvaliacao / recurso.avaliacao.length).toFixed(1)
+                    span= mediaAvaliacao
+                  else
+                    span Sem avaliações

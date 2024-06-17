@@ -73,8 +73,22 @@ router.post('/registo', async (req, res) => {
 
 // perfil do utilizador
 
-router.get('/perfil', auth.getUserMail , function(req, res, next) {
+router.get('/perfil', auth.getUserMail , async (req, res, next) => {
   const admin = req.user.role === "admin";
+  const token = req.cookies.token;
+  let query = [];
+  query.push(`email=${encodeURIComponent(req.user.email)}`);
+
+  const queryString = query.length ? `?${query.join('&')}` : '';
+
+  const response = await axios.get(`${apiURL}/recursos${queryString}`, {
+    headers: {
+      'authorization': `Bearer ${token}`
+    }
+  });
+
+  const recursos = response.data;
+
   // Aqui você pode adicionar lógica para buscar dados do usuário do banco de dados, se necessário
   res.render('perfil', {
     title: 'Perfil do Usuário',
@@ -89,12 +103,28 @@ router.get('/perfil', auth.getUserMail , function(req, res, next) {
       registro: req.user.registo,
       ultimoAcesso: req.user.ultimoAcessos,
     },
-    admin
+    admin,
+    recursos
   });
 });
 
 router.get('/perfil/:email', auth.getUserMail, async (req, res) => {
   const admin = req.user.role === "admin";
+
+  const token = req.cookies.token;
+  let query = [];
+  query.push(`email=${encodeURIComponent(req.user.email)}`);
+
+  const queryString = query.length ? `?${query.join('&')}` : '';
+
+  const response = await axios.get(`${apiURL}/recursos${queryString}`, {
+    headers: {
+      'authorization': `Bearer ${token}`
+    }
+  });
+
+  const recursos = response.data;
+
   res.render('perfilEdit', {
     title: 'Perfil do Usuário',
     user: {
@@ -108,7 +138,8 @@ router.get('/perfil/:email', auth.getUserMail, async (req, res) => {
       registro: req.user.registo,
       ultimoAcesso: req.user.ultimoAcessos
     },
-    admin
+    admin,
+    recursos
   });
 });
 

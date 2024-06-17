@@ -72,3 +72,38 @@ body {
 .btn-primary:hover {
     background-color: #0056b3;
 }
+
+/* Table Styles */
+.table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+  }
+  
+  .table th, 
+  .table td {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .table th {
+    background-color: #1e9be5;
+    color: white;
+  }
+  
+  .table tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  
+  .author-link {
+    color: inherit; 
+    text-decoration: none; 
+    cursor: pointer; 
+  }
+  
+  .author-link:hover {
+    text-decoration: underline; 
+  }
+  

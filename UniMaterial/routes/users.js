@@ -32,8 +32,21 @@ router.get('/profile/:email',  auth.getUserMail , async (req, res) => {
       const response = await axios.get(`${apiURL}/profile/${email}`);
       const usuario = response.data;
 
-      // Renderiza a página 'perfilAutor' com os dados do usuário
-      res.render('perfilAutor', { usuario: usuario , admin });
+      const token = req.cookies.token;
+      let query = [];
+      query.push(`email=${encodeURIComponent(email)}`);
+
+      const queryString = query.length ? `?${query.join('&')}` : '';
+
+      const responseRec = await axios.get(`http://backend:3001/recursos${queryString}`, {
+        headers: {
+          'authorization': `Bearer ${token}`
+        }
+      });
+
+      const recursos = responseRec.data;
+
+      res.render('perfilAutor', { usuario: usuario , admin , recursos });
   } catch (error) {
       if (error.response && error.response.status === 404) {
           res.status(404).send('Usuário não encontrado');

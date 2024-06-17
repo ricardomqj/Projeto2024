@@ -30,6 +30,10 @@ router.get('/', auth.authenticateToken,  async (req, res) => {
             const recursos = await RecursoController.findByAutor(req.query.autor);
             return res.json(recursos);
         }
+        if (req.query.email) {
+            const recursos = await RecursoController.findByEmail(req.query.email);
+            return res.json(recursos);
+        }
         if (req.query.id) {
             const recurso = await RecursoController.findById(req.query.id);
             if (!recurso) return res.status(404).json({ message: 'Recurso not found' });

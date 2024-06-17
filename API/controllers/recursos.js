@@ -100,6 +100,10 @@ module.exports.findById = id => {
     return Recurso.findOne({ _id: id }).exec();
 }
 
+module.exports.findByEmail = email => {
+    return Recurso.find({ autor_email: email }).exec();
+}
+
 module.exports.findByEscola = escola => {
     return Recurso.find({ escola: escola }).exec();
 }
