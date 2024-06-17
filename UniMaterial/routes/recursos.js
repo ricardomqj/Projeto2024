@@ -209,6 +209,7 @@ router.post('/:recursoId/avaliar', auth.getUserMail, async (req, res) => {
 
 router.post('/:recursoId/update', async (req, res) => {
   try {
+    console.log('req.body:', req.body);
     const token = req.cookies.token;
     const { recursoId } = req.params;
 

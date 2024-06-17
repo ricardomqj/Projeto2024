@@ -12,8 +12,7 @@ block content
       .container
         .header
           h1 #{recurso.nome}
-          p Publicado por #{recurso.autor_cargo} #{recurso.autor_recurso}
-
+          p Publicado por #{recurso.autor_cargo} #{recurso.autor_recurso} a #{recurso.data}
         - const isFavorito = listaFavsLoggedUser.includes(recurso._id);
 
         form(action=`/users/favoritos/${recurso._id}/${isFavorito ? 'remover' : 'adicionar'}` method="post")
@@ -31,6 +30,7 @@ block content
               p Escola: #{recurso.escola}
               p Departamento: #{recurso.departamento}
               p Curso: #{recurso.curso}
+              p Restrição: #{recurso.restricao}
 
         // Descrição do Recurso
         .description-box
@@ -92,37 +92,33 @@ block content
               button.btn.btn-primary(type="submit") Adicionar Comentário
 
 
-        .container
+        .container-edit
             h1 Editar #{recurso.nome}
         
             form(action=`/recursos/${recurso._id}/update` method='POST')
                 .form-group
-                label(for="nome") Nome:
-                input.form-control(type="text" id="nome" name="nome" value=recurso.nome required)
+                    label(for="nome") Nome:
+                    input.form-control(type="text" id="nome" name="nome" value=recurso.nome required)
                 
                 .form-group
-                label(for="descricao") Descrição:
-                textarea.form-control(id="descricao" name="descricao" required)= recurso.descricao
+                    label(for="descricao") Descrição:
+                    textarea.form-control(id="descricao" name="descricao" required)= recurso.descricao
                 
                 .form-group
-                label(for="tema") Tema:
-                input.form-control(type="text" id="tema" name="tema" value=recurso.tema required)
+                    label(for="tema") Tema:
+                    input.form-control(type="text" id="tema" name="tema" value=recurso.tema required)
 
                 .form-group
-                label(for="escola") Escola:
-                input.form-control(type="text" id="escola" name="escola" value=recurso.escola required)
-
-                .form-group
-                label(for="departamento") Departamento:
-                input.form-control(type="text" id="departamento" name="departamento" value=recurso.departamento required)
-
-                .form-group
-                label(for="curso") Curso:
-                input.form-control(type="text" id="curso" name="curso" value=recurso.curso required)
+                    label(for='restricao') Privacidade
+                    select#privacidade.form-control(name='restricao')
+                        option(value='público') Público
+                        option(value='escola') Escola
+                        option(value='departamento') Departamento
+                        option(value="curso") Curso
                 
                 button.btn.btn-primary(type="submit") Atualizar Recurso
-
-            a.btn.btn-secondary(href=`/recursos/${recurso._id}`) Cancelar
-            
-            form(action=`/recursos/${recurso._id}/DELETE` method='GET')
-                button.btn.btn-danger(type='submit') Apagar Recurso
+            .btn-group   
+                a.btn.btn-secondary(href=`/recursos/${recurso._id}`) Cancelar
+                
+                form(action=`/recursos/${recurso._id}/DELETE` method='GET')
+                    button.btn.btn-danger(type='submit') Apagar Recurso
