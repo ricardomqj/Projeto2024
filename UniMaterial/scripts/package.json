@@ -1,0 +1,10 @@
+{
+    "name": "file-import-script",
+    "version": "1.0.0",
+    "description": "Script to import files into MongoDB using GridFS",
+    "main": "importFiles.js",
+    "dependencies": {
+      "mongodb": "^3.6.0"
+    }
+  }
+  
