@@ -27,6 +27,23 @@ exports.findById = async () => {
   }
 };
 
+exports.getUserFavoritesByEmail = async (email) => {
+  try {
+    const userFavorites = await User.findOne({ email: email })
+      .populate('favoritos')
+      .exec();
+
+    if(!userFavorites) {
+      throw new Error("User not found");
+    }
+
+    console.log("ControllerUser: returning:\n_________________\n " + userFavorites.favoritos + "\n______________\n");
+    return userFavorites.favoritos;
+  } catch (err) {
+    throw new Error(err.message);
+  }
+} 
+
 exports.findByEmail = async (email) => {
   try {
     const user = await User.findOne({ email: email }).exec();
