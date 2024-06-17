@@ -258,7 +258,7 @@ router.post('/files', auth.getUserMail, upload.array('myFiles', 10), (req, res) 
     departamento: req.user.departamento,
     curso: req.user.curso,
     avaliacao: [],
-    date: new Date().toISOString().substring(0,19),
+    data: new Date().toISOString().substring(0,19),
     nome: req.body.titulo,
     descricao: req.body.descricao,
     tema: req.body.tema,
