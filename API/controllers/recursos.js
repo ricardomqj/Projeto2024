@@ -4,6 +4,87 @@ module.exports.list = async () => {
     return await Recurso.find().exec();
 }
 
+module.exports.listByAvaliacao = async () => {
+    try {
+        const recursos = await Recurso.aggregate([
+          {
+            $addFields: {
+              // Calculate the average rating for each resource
+              averageRating: { $avg: "$avaliacao.avaliacao" }
+            }
+          },
+          {
+            $sort: { averageRating: -1 } // Sort by average rating descending (best to worst)
+          },
+          {
+            $project: {
+              // Remove the temporary averageRating field
+              averageRating: 0
+            }
+          }
+        ]).exec(); // Execute the aggregation pipeline
+    
+        return recursos;
+    
+      } catch (err) {
+        throw new Error('Erro ao obter os recursos: ' + err.message);
+      }
+};
+
+exports.listRecentes = async () => {
+    try {
+        const recursos = await Recurso.aggregate([
+            {
+                $addFields: {
+                    
+                    parsedDate: {
+                        $dateFromString: {
+                            dateString: '$data',
+                            format: '%H:%M %d/%m/%Y' 
+                        }
+                    }
+                }
+            },
+            {
+                $sort: { parsedDate: -1 }
+            },
+            {
+                $project: {
+                    
+                    parsedDate: 0
+                }
+            }
+        ]).exec();
+        return recursos;
+    } catch (err) {
+        throw new Error('Erro ao obter os recursos: ' + err.message);
+    }
+};
+
+
+exports.listByNAvaliacao = async () => {
+    try {
+        const recursos = await Recurso.aggregate([
+            {
+                $addFields: {
+                    numAvaliacoes: { $size: "$avaliacao" } // Add a field to count the number of avaliações
+                }
+            },
+            {
+                $sort: { numAvaliacoes: -1 } // Sort by numAvaliacoes descending
+            },
+            {
+                $project: {
+                    numAvaliacoes: 0 // Remove temporary field
+                }
+            }
+        ]).exec();
+        return recursos;
+    } catch (err) {
+        throw new Error('Erro ao obter os recursos: ' + err.message);
+    }
+};
+
 module.exports.findByNome = nome => {
     return Recurso.find({ nome: new RegExp(nome, 'i') }).exec(); 
 }

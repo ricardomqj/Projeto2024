@@ -51,7 +51,7 @@ block content
                                 td #{user.email}
                                 td #{user.cargo}
                                 td
-                                    form(action=`/admin/users/alterarCargo/${user.email}/${user.cargo}` method="post")
+                                    form(action=`/users/alterarCargo/${user.email}/${user.cargo}` method="post")
                                         button.btn.btn-primary(type="submit") Alterar Cargo
                                 td
                                     .btn-group

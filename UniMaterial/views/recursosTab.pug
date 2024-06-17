@@ -20,18 +20,25 @@ block content
     body
       .container
         header.header
-          h1 Welcome to the Resource Dashboard
-          p Here you can find a list of all resources registered in our system.
+          h1 Recrusos Disponíveis
           
         // Barra de pesquisa com seleção dinâmica
-        .search-bar
-          form(method="GET" action="/recursos")
-            select#searchType
-              option(value="autor") autor
-              option(value="nome")  nome
-              option(value="tema")  tema
-            input(type="text" id="searchInput" name="autor" placeholder="Digite sua pesquisa")
-            button(type="submit") Pesquisar
+        .filters-bar
+          .search-bar
+            form(method="GET" action="/recursos")
+              select#searchType
+                option(value="autor") autor
+                option(value="nome")  nome
+                option(value="tema")  tema
+              input(type="text" id="searchInput" name="autor" placeholder="Digite sua pesquisa")
+              button(type="submit") Pesquisar
+          .search-bar
+            form(method="GET" action="/recursos")
+                select#searchType(name="sort") 
+                    option(value="recentes" selected) Mais Recentes
+                    option(value="nclassificacao") Mais Avaliações
+                    option(value="classificacao") Melhor Avaliados
+                button(type="submit") Pesquisar
 
         script.
           document.addEventListener('DOMContentLoaded', function() {

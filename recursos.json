@@ -14,7 +14,7 @@
         "tema": "Desenvolvimento Web",
         "ficheiros": ["introducao.html", "exemplo.css"],
         "comentarios": [],
-        "data": "12:23 02/06/2024",
+        "data": "10:23 02/06/2024",
         "autor_recurso": "Mariana Sampaio",
         "autor_cargo": "aluna",
         "autor_email": "marS@gmail.com"
@@ -24,10 +24,10 @@
         "escola": "Escola de Engenharia",
         "departamento": "Ciência da Computação",
         "curso": "Engenharia de Software",
-        "avaliacao": {
+        "avaliacao": [{
             "avaliacao": 5,
             "email": "rfernandespinto@gmail.com"
-        },
+        }] ,
         "nome": "CSS Avançado",
         "descricao": "Técnicas avançadas em CSS.",
         "tema": "Desenvolvimento Web",
@@ -39,7 +39,7 @@
                 "data": "12:23 02/06/2024"
             }
         ], 
-        "data": "12:23 02/06/2024",
+        "data": "12:23 02/05/2024",
         "autor_recurso": "Rui Pinto",
         "autor_cargo": "professor",
         "autor_email": "rfernandespinto@gmail.com"
@@ -87,7 +87,7 @@
                 "data": "12:23 02/06/2024"
             }
         ],
-        "data": "12:23 02/06/2024",
+        "data": "12:23 02/06/2021",
         "autor_recurso": "Pedro Azedo",
         "autor_cargo": "aluno",
         "autor_email": "pedro@gmail.com"
