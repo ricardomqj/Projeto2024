@@ -18,6 +18,6 @@ module.exports.getUserMail = async function(req, res, next) {
         req.user = response.data;  // Armazene os dados do usuário no objeto de requisição
         next();  // Continue para o próximo middleware ou rota
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.render("index");
     }
 }

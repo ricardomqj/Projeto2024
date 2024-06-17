@@ -6,6 +6,21 @@ const auth = require('../auth/auth');
 // List all recursos or find by query parameters
 router.get('/', auth.authenticateToken,  async (req, res) => {
     try {
+        if (req.query.sort) {
+            if (req.query.sort === 'classificacao') {
+                const recursos = await RecursoController.listByAvaliacao();
+                console.log("Recursos: ", recursos);
+                return res.json(recursos);
+            }
+            if (req.query.sort === 'recentes') {
+                const recursos = await RecursoController.listRecentes();
+                return res.json(recursos);
+            }
+            if (req.query.sort === 'nclassificacao') {
+                const recursos = await RecursoController.listByNAvaliacao();
+                return res.json(recursos);
+            }
+        }
         if (req.query.nome) {
             const recursos = await RecursoController.findByNome(req.query.nome);
             if (recursos.length === 0) return res.status(404).json({ message: 'Recurso not found' });

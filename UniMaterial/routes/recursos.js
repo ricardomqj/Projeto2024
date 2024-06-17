@@ -6,12 +6,16 @@ var auth = require('../auth/auth');
 const apiURL = 'http://backend:3001/recursos';
 const apiURLUsers = 'http://backend:3001/users';
 
+
 // Rota principal
 router.get('/', auth.getUserMail, async (req, res, next) => {
   const token = req.cookies.token;
   try {
     // Monta a query string baseada nos filtros fornecidos
     let query = [];
+    if(req.query.sort) {
+      query.push(`sort=${encodeURIComponent(req.query.sort)}`);
+    }
     if (req.query.autor) {
       query.push(`autor=${encodeURIComponent(req.query.autor)}`);
     }
