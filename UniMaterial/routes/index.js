@@ -253,6 +253,7 @@ router.post('/files', auth.getUserMail, upload.array('myFiles', 10), (req, res) 
   jsonfile.writeFileSync(__dirname + '/../data/dbFiles.json', files, {spaces: 2});
 
   const resourceData = {
+    nome: req.body.titulo,
     restricao: req.body.privacidade,
     escola: req.user.escola,
     departamento: req.user.departamento,
