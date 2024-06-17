@@ -259,6 +259,7 @@ router.post('/files', auth.getUserMail, upload.array('myFiles', 10), (req, res) 
     departamento: req.user.departamento,
     curso: req.user.curso,
     avaliacao: [],
+    nome: req.body.titulo,
     data : new Date().toLocaleString('pt-PT', { 
       hour12: false,
       hour: '2-digit', 
