@@ -301,13 +301,15 @@ Em resumo, estas rotas fornecem funcionalidades essenciais para a gestão de uti
 
 ## 5.1 Pagina de autenticação
 
--- print da pagina --
+![auth_page](imagens/auth_page.png)
 
 ## 5.2 Pagina de registo
 
--- print da página --
+![register_page](imagens/register_page.png)
 
 ## 5.3 Página de notícias
+
+-- por print das noticias --
 
 ## 5.4 Página de recursos
 
@@ -315,23 +317,23 @@ Em resumo, estas rotas fornecem funcionalidades essenciais para a gestão de uti
 
 ## 5.5 Página de publicação de um recurso
 
--- print da página --
+![publicar_rec_push](imagens/publicar_page.png)
 
 ## 5.6 Página de edição de um recurso
 
--- print da página --
+![edit_recurso](imagens/edit_recurso_page.png)
 
 ## 5.7 Página do painel do administrador
 
--- print da página --
+![admin_panel](imagens/admin_panel_page.png)
 
 ## 5.8 Página de perfil
 
--- print da página --
+![perfil](imagens/perfil_page.png)
 
 ## 5.9 Página de edição de perfil
 
--- print da página
+![edit_perfil](imagens/edit_perfil_page.png)
 
 # 6. Modo de funcionamento 
 
