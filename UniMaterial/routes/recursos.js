@@ -108,7 +108,10 @@ router.get('/:id/editar', auth.getUserMail, async (req, res, next) => {
       const autorRec = recurso.autor_email === req.user.email;
       const admin = req.user.role === "admin";
 
+      const listaFavsLoggedUser = req.user.favoritos;
+
       res.render('recursoPageEdit', {
+        listaFavsLoggedUser,
         recurso,
         jaAvaliou,
         autorRec,

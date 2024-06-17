@@ -12,7 +12,7 @@ block content
       .container
         .header
           h1 #{recurso.nome}
-          p Publicado por #{recurso.autor_cargo} #{recurso.autor_recurso}
+          p Publicado por #{recurso.autor_cargo} #{recurso.autor_recurso} a #{recurso.data}
 
         - const isFavorito = listaFavsLoggedUser.includes(recurso._id);
 

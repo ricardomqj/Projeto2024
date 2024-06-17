@@ -6,75 +6,95 @@ block content
     head
       meta(charset="UTF-8")
       meta(name="viewport", content="width=device-width, initial-scale=1.0")
-      title Editar Informações do Recurso
-      link(rel="stylesheet", href="/stylesheets/style.css")
+      title Informações do Recurso
+      link(rel="stylesheet", href="/stylesheets/recursoPage.css")
     body
-        .container
-            .header
-            h1 #{recurso.nome}
-            p #{recurso.descricao}
-            
-            .recurso-details
-            p
-                span Tema:
-                | 
-                span #{recurso.tema}
-            p
-                span Escola:
-                | 
-                span #{recurso.escola}
-            p
-                span Departamento:
-                | 
-                span #{recurso.departamento}
-            p
-                span Curso:
-                | 
-                span #{recurso.curso}
-            p
-                span Autor:
-                | 
-                span #{recurso.autor_recurso} - #{recurso.autor_cargo}
-            p
-                span Data:
-                | 
-                span #{new Date(recurso.data).toLocaleDateString("pt-PT")}
-            p
-                span Avaliação:
-                |
-                if recurso.avaliacao.length > 0
-                    - var totalAvaliacao = recurso.avaliacao.reduce((acc, aval) => acc + aval.avaliacao, 0)
-                    - var mediaAvaliacao = (totalAvaliacao / recurso.avaliacao.length).toFixed(1)
-                    span #{mediaAvaliacao}
-                else
-                span Sem avaliações
-            p
-                span Arquivos:
-                ul
-                each file in recurso.ficheiros
-                    li
-                    a(href=`/download/${file}`) #{file}
+      .container
+        .header
+          h1 #{recurso.nome}
+          p Publicado por #{recurso.autor_cargo} #{recurso.autor_recurso}
 
-            // Evaluation section
-            .evaluation
-            h5 Avaliação
-            if jaAvaliou
-                .alert.alert-warning
-                | Você já avaliou este recurso.
+        - const isFavorito = listaFavsLoggedUser.includes(recurso._id);
+
+        form(action=`/users/favoritos/${recurso._id}/${isFavorito ? 'remover' : 'adicionar'}` method="post")
+          button.btn.btn-primary(type="submit") 
+            if isFavorito 
+              | Remover dos Favoritos
             else
-                form(action=`/recursos/${recurso._id}/avaliar` method='POST')
-                // Inserir elementos do formulário para avaliação
-                select(name='avaliacao')
-                    option(value='1') 1
-                    option(value='2') 2
-                    option(value='3') 3
-                    option(value='4') 4
-                    option(value='5') 5
-                button(type='submit') Avaliar
+              | Adicionar aos Favoritos
 
-            .container
-                h1 Editar #{recurso.nome}
-            
+        // Detalhes do recurso organizados em duas colunas
+        .info-layout
+          h3 Informações da Publicação
+          .info-group
+            .info-box
+              p Escola: #{recurso.escola}
+              p Departamento: #{recurso.departamento}
+              p Curso: #{recurso.curso}
+
+        // Descrição do Recurso
+        .description-box
+          h3 Descrição
+          p #{recurso.descricao}
+
+        // Exibição centralizada de arquivos
+        .files-display
+          h3 Arquivos
+          ul.file-list
+            each file in recurso.ficheiros
+              li
+                a(href=`/download/${file}`, class="file-link")
+                  img(src="/fileStore/file1.png", alt=file, style="width: 100px; height: auto;")
+                  div(style="text-align: center;") #{file}
+                  
+        // Avaliação no topo da página movida para cá
+        .evaluation-box
+          h3 Deixe a sua avaliação
+          if recurso.avaliacao.length > 0
+            - var totalAvaliacao = recurso.avaliacao.reduce((acc, aval) => acc + aval.avaliacao, 0)
+            - var mediaAvaliacao = (totalAvaliacao / recurso.avaliacao.length).toFixed(1)
+            span #{mediaAvaliacao}
+          else
+            span Sem avaliações
+          if !jaAvaliou
+            form(action=`/recursos/${recurso._id}/avaliar` method='POST', class='evaluation-form')
+              select(name='avaliacao', class='select-evaluation')
+                option(value='1') 1
+                option(value='2') 2
+                option(value='3') 3
+                option(value='4') 4
+                option(value='5') 5
+              button(type='submit', class='btn-evaluation') Avaliar
+          else
+            .alert.alert-warning Você já avaliou este recurso.
+
+        // Seção de comentários
+        .comments-section
+          h2 Comentários
+          if recurso.comentarios.length > 0
+            each comentario in recurso.comentarios
+              .comment-box
+                .comment-header
+                  span.comment-author #{comentario.autor}
+                  span.comment-date #{new Date(comentario.data).toLocaleDateString("pt-PT")}
+                .comment-body
+                  p #{comentario.texto}
+          else
+            p Nenhum comentário ainda. Seja o primeiro a comentar!
+
+          // Formulário para adicionar comentários
+          .add-comment-form
+            h3 Adicionar Comentário
+            form(action=`/recursos/${recurso._id}/comentarios` method="post")
+              .form-group
+                label(for="texto") Comentário:
+                textarea.form-control(name="texto", rows="4", required)
+              button.btn.btn-primary(type="submit") Adicionar Comentário
+
+
+        .container
+            h1 Editar #{recurso.nome}
+        
             form(action=`/recursos/${recurso._id}/update` method='POST')
                 .form-group
                 label(for="nome") Nome:
@@ -105,25 +125,4 @@ block content
             a.btn.btn-secondary(href=`/recursos/${recurso._id}`) Cancelar
             
             form(action=`/recursos/${recurso._id}/DELETE` method='GET')
-            button.btn.btn-danger(type='submit') Apagar Recurso
-
-            .comments-section
-            h2 Comentários
-            if recurso.comentarios.length > 0
-                each comentario in recurso.comentarios
-                    .comment
-                        .comment-header
-                        span.comment-author #{comentario.autor}
-                        span.comment-date #{new Date(comentario.data).toLocaleDateString("pt-PT")}
-                        .comment-body
-                        p #{comentario.texto}
-                else
-                    p Nenhum comentário ainda. Seja o primeiro a comentar!
-
-            .add-comment-form
-                h3 Adicionar Comentário
-                form(action=`/recursos/${recurso._id}/comentarios` method="post")
-                .form-group
-                    label(for="texto") Comentário:
-                    textarea.form-control(name="texto" rows="4" required)
-                button.btn(type="submit") Adicionar Comentário
+                button.btn.btn-danger(type='submit') Apagar Recurso
