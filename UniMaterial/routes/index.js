@@ -141,7 +141,7 @@ router.get('/noticias', auth.getUserMail,  async  (req, res, next) => {
   const token = req.cookies.token;
 
   try {
-    const response = await axios.get(`http://backend:3001/recursos`, {
+    const response = await axios.get(`http://backend:3001/recursos?sort=recentes`, {
       headers: {
         'authorization': `Bearer ${token}`
       }

@@ -13,10 +13,12 @@ body {
   }
   
   .header {
-    background: #007BFF;
-    color: #fff;
     padding: 10px 0;
     text-align: center;
+  }
+
+  header h1 {
+    color: #007bff;
   }
   
   .news-item {
