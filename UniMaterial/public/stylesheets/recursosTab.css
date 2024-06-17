@@ -18,13 +18,28 @@ body {
   font-size: 16px;
 }
 
+.filters-bar {
+  display: flex; /* Use flexbox to arrange items in a row */
+  flex-direction: row; /* Explicitly set the direction to row */
+  gap: 10px;            /* Add some space between the items */
+  margin-bottom: 20px; 
+  justify-content: space-between;
+
+}
+
 /* Search Bar Styles */
 .search-bar {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  width: auto;
   gap: 10px;
-  margin-bottom: 20px;
 }
+
+i.fa-heart {
+  font-size: 2.5em;  /* Adjust size */
+  color: #007bff;     /* Set color */
+}
+
 
 .search-bar select, 
 .search-bar input, 
