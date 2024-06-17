@@ -309,11 +309,14 @@ Em resumo, estas rotas fornecem funcionalidades essenciais para a gestão de uti
 
 ## 5.3 Página de notícias
 
--- por print das noticias --
+![register_page](imagens/noticias.png)
+
 
 ## 5.4 Página de recursos
 
--- print da pagina de recursos --
+![register_page](imagens/recurso_pagina_1.png)
+
+![register_page](imagens/recurso_pagina_2.png)
 
 ## 5.5 Página de publicação de um recurso
 
@@ -334,6 +337,10 @@ Em resumo, estas rotas fornecem funcionalidades essenciais para a gestão de uti
 ## 5.9 Página de edição de perfil
 
 ![edit_perfil](imagens/edit_perfil_page.png)
+
+## 5.10 Recurso de edição da Página de recurso
+
+![edit_perfil](imagens/edit_recurso_pagina.png)
 
 # 6. Modo de funcionamento 
 
