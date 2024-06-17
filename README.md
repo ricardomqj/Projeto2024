@@ -9,17 +9,17 @@
 
 # Índice
 
-- [Grupo](#grupo)
-- [Introdução](#1-introdução)
-- [Objetivo](#2-objetivo)
-- [Análise e Especificação](#3-análise-e-especificação)
+- **[Grupo](#grupo)**
+- **[Introdução](#1-introdução)**
+- **[Objetivo](#2-objetivo)**
+- **[Análise e Especificação](#3-análise-e-especificação)**
   - [Descrição do problema](#31-descrição-do-problema)
   - [Levantamento de Requisitos](#32-levantamento-de-requisitos)
     - [Requisitos Funcionais](#321-requisitos-funcionais)
     - [Requisitos Extra](#322-requisitos-extra)
-- [Estrutura / Desenvolvimento](#4-estrutura--desenvolvimento)
+- **[Estrutura / Desenvolvimento](#4-estrutura--desenvolvimento)**
   - [API de dados](#41-api-de-dados)
-    - [curjos.js](#411-curjosjs)
+    - [cursos.js](#411-cursosjs)
     - [recursos.js](#412-recursosjs)
     - [users.js](#413-usersjs)
   - [UniMaterial](#42-unimaterial)
@@ -28,9 +28,9 @@
     - [recursos.js](#423-recursosjs)
     - [users.js](#424-usersjs)
   - [Autenticação](#43-autenticação)
-- [Interface desenvolvida](#5-interface-desenvolvida)
-  - [Pagina de autenticação](#51-pagina-de-autenticação)
-  - [Pagina de registo](#52-pagina-de-registo)
+- **[Interface desenvolvida](#5-interface-desenvolvida)**
+  - [Página de autenticação](#51-pagina-de-autenticação)
+  - [Página de registo](#52-pagina-de-registo)
   - [Página de notícias](#53-página-de-notícias)
   - [Página de recursos](#54-página-de-recursos)
   - [Página de publicação de um recurso](#55-página-de-publicação-de-um-recurso)
@@ -38,9 +38,8 @@
   - [Página do painel do administrador](#57-página-do-painel-do-administrador)
   - [Página de perfil](#58-página-de-perfil)
   - [Página de edição de perfil](#59-página-de-edição-de-perfil)
-- [Modo de funcionamento](#6-modo-de-funcionamento)
-- [Conclusão](#7-conclusão)
-
+- **[Modo de funcionamento](#6-modo-de-funcionamento)**
+- **[Conclusão](#7-conclusão)**
 
 # 1. Introdução 
 
@@ -177,7 +176,9 @@ Na interface, lidamos principalmente com routes, views, e public folders.
 - **GET /:id/DELETE**: Elimina um recurso.
 ## 4.3 Autenticação
 
--- Falar da autenticação --
+Quando um utilizador dá um login com sucesso é lhe atribuído um token de duração de 1 hora. Em todos os pedidos efetudos à API o user envia o token para ser verificado pela  ***auth.authenticateToken***. 
+Para além disso, para pedidos mais sensívesis e apenas permitidos para admins, ainda é utilizada a ***auth.isAdmin*** para certificar que se trata de um admin a efetuar o pedido.
+Quando existem erro na veridicação do token, o utilizador é reencaminhado de volta para o login.
 
 # 5. Interface desenvolvida
 
