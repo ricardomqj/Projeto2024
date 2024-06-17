@@ -14,6 +14,15 @@ block content
           h1 #{recurso.nome}
           p Publicado por #{recurso.autor_cargo} #{recurso.autor_recurso}
 
+          - const isFavorito = listaFavsLoggedUser.includes(recurso._id);
+
+          form(action=`/users/favoritos/${recurso._id}/${isFavorito ? 'remover' : 'adicionar'}` method="post")
+          button.btn.btn-primary(type="submit") 
+            if isFavorito 
+              | Remover dos Favoritos
+            else
+              | Adicionar aos Favoritos
+
         // Detalhes do recurso organizados em duas colunas
         .info-layout
           h3 Informações da Publicação

@@ -42,6 +42,31 @@ router.get('/profile/:email', async (req, res) => {
   }
 });
 
+router.post('/favoritos/:recursoId/remover', auth.getUserMail, async (req, res, next) => {
+  try {
+    console.log("antes de const token, const recursoId, const email");
+    const token = req.cookies.token;
+    const { recursoId } = req.params;
+    const email = req.user.email;
+    console.log("recursoID -> " + recursoId);
+    console.log("email -> " + apiURL);
+    console.log("antes de const response");
+    console.log(`antes de axios.delete(${apiURL}/favoritos/${recursoId}/remove)`);
+    const response = await axios.post(`${apiURL}/favoritos/${recursoId}/remove`, { recursoId , email }, {
+      headers: {
+        'authorization': `Bearer ${token}`
+      }
+    });
+    console.log("response -> " + response);
+    console.log("antes de res.redirect(`/recursos/${recursoId}`)");
+
+    res.redirect(`/recursos/${recursoId}`);
+  } catch (error) {
+    console.log("error no delete dos favoritos");
+    next(error);
+  }
+});
+
 router.post(`/alterarCargo/:email/:cargo`,auth.getUserMail, async (req, res, next) => {
   try {
     if (req.user.role !== "admin") {
