@@ -25,6 +25,16 @@ router.get('/', auth.getUserMail, async (req, res, next) => {
     if (req.query.tema) {
       query.push(`tema=${encodeURIComponent(req.query.tema)}`);
     }
+    if (req.query.escola) {
+      query.push(`escola=${encodeURIComponent(req.query.escola)}`);
+    }
+    if (req.query.departamento) {
+      query.push(`departamento=${encodeURIComponent(req.query.departamento)}`);
+    }
+    if (req.query.curso) {
+      query.push(`curso=${encodeURIComponent(req.query.curso)}`);
+    }
+    
     const queryString = query.length ? `?${query.join('&')}` : '';
     const response = await axios.get(`${apiURL}${queryString}`, {
       headers: {
