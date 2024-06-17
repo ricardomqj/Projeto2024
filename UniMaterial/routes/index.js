@@ -258,8 +258,14 @@ router.post('/files', auth.getUserMail, upload.array('myFiles', 10), (req, res) 
     departamento: req.user.departamento,
     curso: req.user.curso,
     avaliacao: [],
-    date: new Date().toISOString().substring(0,19),
-    nome: req.body.titulo,
+    data : new Date().toLocaleString('pt-PT', { 
+      hour12: false,
+      hour: '2-digit', 
+      minute: '2-digit',
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+    }).replace(/\//g, '-'),    
     descricao: req.body.descricao,
     tema: req.body.tema,
     ficheiros: resourceFiles,

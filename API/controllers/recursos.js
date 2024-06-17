@@ -33,33 +33,31 @@ module.exports.listByAvaliacao = async () => {
 
 exports.listRecentes = async () => {
     try {
-        const recursos = await Recurso.aggregate([
-            {
-                $addFields: {
-                    
-                    parsedDate: {
-                        $dateFromString: {
-                            dateString: '$data',
-                            format: '%H:%M %d/%m/%Y' 
-                        }
-                    }
-                }
-            },
-            {
-                $sort: { parsedDate: -1 }
-            },
-            {
-                $project: {
-                    
-                    parsedDate: 0
-                }
+      const recursos = await Recurso.aggregate([
+        {
+          $addFields: {
+            parsedDate: {
+              $dateFromString: {
+                dateString: '$data',
+                format: '%d-%m-%Y, %H:%M' // Updated format
+              }
             }
-        ]).exec();
-        return recursos;
+          }
+        },
+        {
+          $sort: { parsedDate: -1 } // Sort by parsedDate descending (newest first)
+        },
+        {
+          $project: {
+            parsedDate: 0 // Remove temporary field
+          }
+        }
+      ]).exec();
+      return recursos;
     } catch (err) {
-        throw new Error('Erro ao obter os recursos: ' + err.message);
+      throw new Error('Erro ao obter os recursos: ' + err.message);
     }
-};
+  };
 
 
 exports.listByNAvaliacao = async () => {
